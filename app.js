@@ -11,170 +11,340 @@
 // =============================================================================
 const glossaryData = [
   {
-    term: "Reachability (Alcance de Red)",
-    lab: "S05",
-    badge: "Red vs Autorización",
-    simple: "Capacidad de un paquete IP para viajar desde una interfaz de red (ENI en EC2) hasta el endpoint del servicio AWS a través de la infraestructura de enrutamiento (IGW, tablas de ruta y Security Groups).",
-    analogy: "Tener una carretera pavimentada y el portón abierto para llegar hasta la puerta del banco. Que puedas pararte en la puerta no significa que el vigilante te deje abrir la caja fuerte.",
-    inLab: "En el Lab 05 configuramos Internet Gateway y ruta 0.0.0.0/0 en Subnet A para que la EC2 alcance el endpoint público de S3. Si la red falla, la respuesta es 'Could not connect / Timeout', jamás 'AccessDenied'."
+    "term": "IAM Role (Rol de IAM)",
+    "lab": "S05",
+    "level": "Fundamento Atómico",
+    "badge": "IAM · Identidad",
+    "simple": "Una identidad de IAM definida en la cuenta de AWS que no posee credenciales fijas permanentes (ni contraseñas ni Access Keys). Está concebida para ser asumida temporalmente por servicios (como Amazon EC2 o AWS Lambda), aplicaciones o identidades externas. Al asumirse mediante AWS Security Token Service (STS), este entrega credenciales temporales que rotan y expiran de forma automática.",
+    "analogy": "Un carnet o credencial electrónica con chip RFID. No le pertenece a una persona fija; quien lo porte en su turno adquiere los privilegios de esa credencial, y al expirar el turno la tarjeta se desactiva sin dejar llaves maestras físicas tiradas.",
+    "inLab": "Creamos 'dcl-dev-role-s05' con entidad de confianza para EC2. La máquina virtual obtuvo permisos para interactuar con S3 asumiendo este rol de forma transparente, sin necesidad de 'aws configure' ni llaves guardadas en disco."
   },
   {
-    term: "Authorization (Autorización IAM)",
-    lab: "S05",
-    badge: "Control de Acceso",
-    simple: "Evaluación formal donde el motor de políticas de AWS determina si la identidad autenticada tiene permiso para ejecutar una acción específica (Action) sobre un recurso determinado (Resource).",
-    analogy: "El oficial de seguridad revisando tu identificación contra el libro de registros para decidir si puedes acceder a la bóveda A o a la bóveda B.",
-    inLab: "La misma instancia EC2 con el mismo IAM Role leyó con éxito 'allowed/context.txt' (PASS) pero recibió 'AccessDenied' al solicitar 'restricted/secret.txt'."
+    "term": "IAM Policy (Política de IAM)",
+    "lab": "S05",
+    "level": "Fundamento Atómico",
+    "badge": "IAM · Autorización",
+    "simple": "Un documento formal estructurado en sintaxis JSON que define explícitamente los permisos dentro de AWS. Contiene una o más declaraciones (Statements) con 4 elementos cardinales: Effect (Allow o Deny), Action (la operación API permitida o denegada), Resource (el ARN exacto sobre el cual aplica) y opcionalmente Condition. En AWS rige el principio de Denegación Implícita (Implicit Deny): todo lo que no esté explícitamente permitido está prohibido.",
+    "analogy": "El contrato o reglamento de acceso de un edificio de alta seguridad. Estipula con precisión: 'Se autoriza (Allow) abrir la puerta (Action) únicamente de la oficina 402 (Resource)'. Si intentas abrir la 403, el guardia te rechaza.",
+    "inLab": "Creamos la Customer Managed Policy 'dcl-dev-policy-s3-read-allowed-s05' que concedió únicamente 's3:GetObject' sobre el recurso 'arn:aws:s3:::bucket/allowed/*'."
   },
   {
-    term: "IAM Role & Credenciales Temporales",
-    lab: "S05",
-    badge: "Gestión de Identidades",
-    simple: "Identidad de IAM sin credenciales estáticas permanentes, asumida por servicios como EC2 o Lambda mediante AWS Security Token Service (STS) que entrega llaves temporales autogestionadas.",
-    analogy: "Un carnet digital con chip de radiofrecuencia que se renueva y expira automáticamente cada pocas horas, eliminando el riesgo de extraviar llaves maestras físicas.",
-    inLab: "Eliminó la necesidad de ejecutar 'aws configure' o almacenar credenciales fijas (Access Key / Secret Key) dentro de la EC2 o en el código de Lambda."
+    "term": "IAM User vs IAM Role",
+    "lab": "S05",
+    "level": "Fundamento Atómico",
+    "badge": "IAM · Buenas Prácticas",
+    "simple": "Un IAM User es una identidad de larga duración asociada a una persona específica, que utiliza credenciales estáticas permanentes (usuario/contraseña para consola o Access Keys estáticas para CLI). Un IAM Role es una identidad asumible por servicios o aplicaciones que usa credenciales temporales generadas por STS sin almacenar llaves fijas. Las buenas prácticas de AWS prohíben categóricamente usar IAM Users o Access Keys estáticas en cargas de trabajo.",
+    "analogy": "Un candado con llave de bronce que te llevas a casa (User: si la pierdes, cualquiera entra) frente a una cerradura digital con código que cambia cada hora (Role: si alguien copia el código, en poco tiempo ya no sirve).",
+    "inLab": "El paso Preflight 5 del profesor prohíbe taxativamente crear access keys fijas o ejecutar 'aws configure' en la EC2. La identidad se resolvió 100% mediante el IAM Role."
   },
   {
-    term: "Instance Profile (Perfil de Instancia)",
-    lab: "S05",
-    badge: "EC2 + IAM",
-    simple: "Contenedor que permite asociar un rol de IAM a una instancia EC2 en tiempo de inicialización o en caliente.",
-    analogy: "El porta-carnet físico con cordón donde insertas el chip de permisos para que el servidor lo porte consigo.",
-    inLab: "Al crear el rol 'dcl-dev-role-s05' en la consola para el servicio EC2, AWS generó automáticamente un Instance Profile homónimo para asociarlo a la instancia virtual."
+    "term": "ARN (Amazon Resource Name)",
+    "lab": "S05",
+    "level": "Fundamento Atómico",
+    "badge": "AWS · Nomenclatura",
+    "simple": "El identificador estándar, unívoco e inequívoco a nivel global para cualquier recurso creado dentro de la nube de AWS. Sigue la estructura jerárquica: 'arn:partition:service:region:account-id:resource-type/resource-id'. Permite al motor de IAM evaluar con precisión matemática el elemento 'Resource' de una política.",
+    "analogy": "La dirección postal estandarizada internacional (País, Código Postal, Ciudad, Calle, Número de Puerta) que garantiza que un paquete llegue a esa oficina exacta en todo el planeta.",
+    "inLab": "Definimos el recurso exacto en la política como 'arn:aws:s3:::dcl-s05-teamXX-<account-id>/allowed/*', delimitando el alcance únicamente a los objetos bajo ese prefijo."
   },
   {
-    term: "IAM Policy: Action vs Resource",
-    lab: "S05",
-    badge: "Estructura JSON",
-    simple: "'Action' especifica la operación o verbo API permitido o denegado (ej. s3:GetObject). 'Resource' restringe el objeto o ARN específico sobre el cual recae dicha operación.",
-    analogy: "'Action' es el verbo 'Leer', mientras que 'Resource' es el estante número 1. Si intentas 'Escribir' o 'Leer el estante 2', la petición es rechazada.",
-    inLab: "Con Action: 's3:GetObject' y Resource: 'arn:aws:s3:::bucket/allowed/*', leer en restricted/ falló por Resource y escribir en allowed/ falló por Action."
+    "term": "Amazon S3 y S3 Bucket",
+    "lab": "S05",
+    "level": "Fundamento Atómico",
+    "badge": "S3 · Almacenamiento",
+    "simple": "Amazon Simple Storage Service (S3) es el servicio de almacenamiento de objetos escalable de AWS. Un 'Bucket' es el contenedor raíz de primer nivel donde se alojan los objetos. Los buckets se crean en una región geográfica específica pero sus nombres deben ser únicos globalmente en toda la infraestructura mundial de AWS. Incluyen control de acceso público (Block Public Access) y cifrado por defecto.",
+    "analogy": "Un hangar de contenedores marítimos. El bucket es un contenedor cerrado con un código de serie mundial irrepetible dentro del cual guardas cajas de datos.",
+    "inLab": "Creamos el bucket privado 'dcl-s05-teamXX-<account-id>' en 'us-east-1' con Block Public Access 100% activo y cifrado SSE-S3 por defecto."
   },
   {
-    term: "s3:GetObject vs s3:PutObject",
-    lab: "S05",
-    badge: "Permisos S3",
-    simple: "'s3:GetObject' concede permiso de lectura y descarga de bytes de un objeto existente. 's3:PutObject' autoriza la carga, creación o sobrescritura de objetos.",
-    analogy: "GetObject es consultar un expediente existente; PutObject es archivar un documento nuevo en el archivador.",
-    inLab: "Se validó que el rol tuviera únicamente s3:GetObject, verificando que los intentos de s3:PutObject fueran rechazados con AccessDenied de manera sistemática."
+    "term": "Objeto en S3 (Data, Metadata y Key)",
+    "lab": "S05",
+    "level": "Fundamento Atómico",
+    "badge": "S3 · Objetos",
+    "simple": "La entidad fundamental almacenada en S3. A diferencia de un sistema de archivos tradicional (disco duro con carpetas jerárquicas), S3 es un espacio plano de almacenamiento de objetos. Cada objeto consta de sus datos binarios, metadatos y una 'Key' (clave o identificador alfanumérico completo). Los nombres que parecen directorios (ej. 'allowed/context.txt') son solo cadenas de texto donde 'allowed/' es un prefijo, no una carpeta física.",
+    "analogy": "Una pared gigante con casilleros etiquetados. No hay una habitación dentro de otra habitación: solo hay casilleros con etiquetas largas escritas en el frente.",
+    "inLab": "Cargamos dos objetos independientes en el mismo bucket: 'allowed/context.txt' y 'restricted/secret.txt' para aislar y contrastar la variable de autorización en el acceso."
   },
   {
-    term: "SSE-S3 (Server-Side Encryption)",
-    lab: "S05",
-    badge: "Cifrado en Reposo",
-    simple: "Cifrado del lado del servidor gestionado por Amazon S3 (AES-256). Protege los bloques físicos de datos almacenados en los discos del centro de datos.",
-    analogy: "Cerrar los archivadores con llave en la bodega del banco. Protege ante el robo del mueble físico, pero no decide si un empleado tiene autorización para consultar los expedientes.",
-    inLab: "Cifrar el bucket con SSE-S3 demostró que el cifrado en reposo no influye en las decisiones de autorización ni produce errores de AccessDenied para usuarios autorizados."
+    "term": "AWS CloudTrail",
+    "lab": "S05",
+    "level": "Fundamento Atómico",
+    "badge": "Gobernanza & Auditoría",
+    "simple": "El servicio central de auditoría, gobernanza y registro operacional de AWS. CloudTrail registra de forma inmutable cada llamada a las APIs de AWS realizada en la cuenta (desde la Consola, AWS CLI o SDKs), capturando quién solicitó la acción (Identity/Principal), qué acción solicitó (EventName), cuándo (EventTime), desde qué IP de origen y con qué parámetros.",
+    "analogy": "La cámara de seguridad de circuito cerrado y el libro de firmas en la recepción de un banco que registra quién entra, qué puerta pide abrir y a qué hora exacta.",
+    "inLab": "En el Paso 7 auditamos CloudTrail Event History para localizar el registro exacto del evento de administración 'AttachRolePolicy' generado al vincular la política al rol."
   },
   {
-    term: "CloudTrail: Management vs Data Events",
-    lab: "S05",
-    badge: "Auditoría & Trazabilidad",
-    simple: "Management Events registran operaciones de plano de control (crear roles, asociar políticas). Data Events registran operaciones de plano de datos (leer/escribir objetos S3, invocar Lambdas).",
-    analogy: "Management Events es el libro de actas notarial de contratación del personal. Data Events es la cámara que graba cada vez que alguien saca una hoja del cajón.",
-    inLab: "En el Event History de CloudTrail se auditó 'AttachRolePolicy' (Management Event). No se visualizan 'GetObject' ni 'PutObject' porque corresponden a Data Events que requieren trails dedicados."
+    "term": "Reachability (Alcance de Red)",
+    "lab": "S05",
+    "level": "Mecanismo Avanzado",
+    "badge": "Red vs Autorización",
+    "simple": "Capacidad de un paquete IP para viajar desde una interfaz de red (ENI en EC2) hasta el endpoint del servicio AWS a través de la infraestructura de enrutamiento (Internet Gateway, tablas de ruta y Security Groups).",
+    "analogy": "Tener una carretera pavimentada y el portón abierto para llegar hasta la puerta del banco. Que puedas pararte en la puerta no significa que el guardia te deje entrar a la bóveda.",
+    "inLab": "En el Lab 05 configuramos Internet Gateway y ruta 0.0.0.0/0 en Subnet A para que la EC2 alcance el endpoint público de S3. Si la red falla, la respuesta es 'Could not connect / Timeout', jamás 'AccessDenied'."
   },
   {
-    term: "CloudFormation: Template vs Stack",
-    lab: "S06",
-    badge: "Infraestructura como Código (IaC)",
-    simple: "El Template es la declaración declarativa en YAML/JSON del estado deseado. El Stack es la colección unificada de recursos aprovisionados y gestionados colectivamente.",
-    analogy: "El Template es el plano arquitectónico en papel; el Stack es la edificación real construida y lista para operar.",
-    inLab: "El archivo fuente fue 's06-ops-cloudformation.yaml' y la unidad aprovisionada en la cuenta fue el stack 'dcl-dev-stack-ops-s06'."
+    "term": "Authorization (Autorización IAM)",
+    "lab": "S05",
+    "level": "Mecanismo Avanzado",
+    "badge": "Control de Acceso",
+    "simple": "Evaluación formal donde el motor de políticas de AWS determina si la identidad autenticada tiene permiso para ejecutar una acción específica (Action) sobre un recurso determinado (Resource).",
+    "analogy": "El guardia revisando tu identificación contra el libro de registros para decidir si tu llave autoriza abrir la caja de seguridad A o la B.",
+    "inLab": "La misma instancia EC2 con el mismo IAM Role leyó con éxito 'allowed/context.txt' (PASS) pero recibió 'AccessDenied' al solicitar 'restricted/secret.txt'."
   },
   {
-    term: "Logical ID vs Physical ID",
-    lab: "S06",
-    badge: "CloudFormation",
-    simple: "El Logical ID es el identificador simbólico dentro de la plantilla. El Physical ID es el identificador único e inmutable asignado por AWS al crear el recurso en el entorno.",
-    analogy: "Logical ID es la etiqueta 'VehículoDeCarga' en el contrato; Physical ID es la placa de matrícula 'i-09f42b...' asignada por el registro vehicular.",
-    inLab: "El recurso lógico 'OpsInstance' del YAML se materializó en AWS con el Physical ID 'i-0123456789abcdef0'."
+    "term": "Instance Profile (Perfil de Instancia)",
+    "lab": "S05",
+    "level": "Mecanismo Avanzado",
+    "badge": "EC2 + IAM",
+    "simple": "Contenedor que permite asociar un rol de IAM a una instancia EC2 en tiempo de inicialización o en caliente para que el servicio de metadatos de la instancia (IMDS) entregue las credenciales temporales del rol a las aplicaciones que corren dentro del servidor.",
+    "analogy": "El porta-carnet físico con cordón donde insertas el chip de permisos para que la máquina virtual lo lleve colgado al cuello.",
+    "inLab": "Al crear el rol 'dcl-dev-role-s05' en la consola para el servicio EC2, AWS generó automáticamente un Instance Profile homónimo para asociarlo a la instancia virtual."
   },
   {
-    term: "Update sin Reemplazo (In-Place)",
-    lab: "S06",
-    badge: "Ciclo de Vida IaC",
-    simple: "Actualización de un stack donde los cambios se aplican a propiedades no críticas (como Tags o descripciones) sin requerir la destrucción y recreación del recurso.",
-    analogy: "Cambiar la etiqueta identificadora en una máquina industrial sin necesidad de desarmarla ni detener la fábrica.",
-    inLab: "Se actualizó el parámetro 'LabRevision' de v1 a v2, validando que el InstanceId de la instancia EC2 se mantuvo idéntico antes y después de la operación."
+    "term": "IAM Policy: Action vs Resource",
+    "lab": "S05",
+    "level": "Mecanismo Avanzado",
+    "badge": "Estructura JSON",
+    "simple": "'Action' especifica el verbo o método de API permitido o denegado (ej. s3:GetObject). 'Resource' especifica el objeto o ARN específico sobre el cual recae dicha operación. Cambiar cualquiera de los dos altera el resultado de la autorización.",
+    "analogy": "'Action' es el verbo 'Leer', mientras que 'Resource' es el estante número 1. Si intentas 'Escribir' o 'Leer el estante 2', la petición es rechazada.",
+    "inLab": "Con Action: 's3:GetObject' y Resource: 'arn:aws:s3:::bucket/allowed/*', leer en restricted/ falló por Resource y escribir en allowed/ falló por Action."
   },
   {
-    term: "Basic Monitoring en Amazon EC2",
-    lab: "S06",
-    badge: "Métricas CloudWatch",
-    simple: "Monitoreo estándar sin costo adicional provisto por el hipervisor de AWS, con granularidad de métricas cada 5 minutos (300 segundos).",
-    analogy: "Un supervisor que realiza un control de temperatura cada 5 minutos exactos en lugar de monitorear segundo a segundo.",
-    inLab: "Dado que cada datapoint toma 5 minutos y la alarma requiere 2 períodos consecutivos, la carga de UserData debió sostenerse durante 15 minutos (900 s)."
+    "term": "s3:GetObject vs s3:PutObject",
+    "lab": "S05",
+    "level": "Mecanismo Avanzado",
+    "badge": "Permisos S3",
+    "simple": "'s3:GetObject' concede permiso de lectura y descarga de bytes de un objeto existente. 's3:PutObject' autoriza la carga, creación o sobrescritura de objetos en S3.",
+    "analogy": "GetObject es consultar un expediente existente; PutObject es archivar un documento nuevo en el archivador.",
+    "inLab": "Se validó que el rol tuviera únicamente s3:GetObject, verificando que los intentos de s3:PutObject fueran rechazados con AccessDenied de manera sistemática."
   },
   {
-    term: "Period, EvaluationPeriods y DatapointsToAlarm",
-    lab: "S06",
-    badge: "Alarmas CloudWatch",
-    simple: "Period: tamaño de la ventana de agregación (300 s). EvaluationPeriods: cantidad de ventanas recientes analizadas (2). DatapointsToAlarm: cantidad de períodos anómalos requeridos para cambiar a estado ALARM (2).",
-    analogy: "Para emitir una alerta, el sistema exige comprobar que en 2 mediciones consecutivas de 5 minutos el promedio superó el 70%.",
-    inLab: "La alarma inició en estado 'INSUFFICIENT_DATA' hasta completar la recolección de los dos períodos de métricas requeridos."
+    "term": "SSE-S3 (Server-Side Encryption)",
+    "lab": "S05",
+    "level": "Mecanismo Avanzado",
+    "badge": "Cifrado en Reposo",
+    "simple": "Cifrado del lado del servidor gestionado por S3 con llaves administradas por AWS (AES-256). Protege los datos en reposo contra acceso físico no autorizado al soporte de almacenamiento de AWS.",
+    "analogy": "Guardar un libro dentro de una caja fuerte de acero blindado. La caja protege contra robos físicos, pero quien tenga autorización formal para abrir la caja puede leer el texto sin problemas.",
+    "inLab": "Se verificó que el bucket tuviera SSE-S3 activo, demostrando que el cifrado protege los datos pero NO sustituye ni condiciona las decisiones de autorización de IAM."
   },
   {
-    term: "UserData en Amazon EC2",
-    lab: "S06",
-    badge: "Automatización de Arranque",
-    simple: "Script de shell ejecutado con privilegios de root una única vez durante el primer inicio de la instancia para configuración y arranque autónomo.",
-    analogy: "La lista de instrucciones preprogramadas que ejecuta un dispositivo al encenderse por primera vez de fábrica.",
-    inLab: "Se ejecutaron 2 bucles de saturación de CPU con 'timeout 900 bash -c \"while :; do :; done\"' sin requerir conexión SSH ni acceso a Internet."
+    "term": "CloudTrail: Management vs Data Events",
+    "lab": "S05",
+    "level": "Mecanismo Avanzado",
+    "badge": "Auditoría AWS",
+    "simple": "Management Events registran operaciones del plano de control (crear recursos, modificar roles, asociar políticas como AttachRolePolicy) y se guardan gratis por 90 días en Event History. Data Events registran operaciones de datos de alto volumen (GetObject, PutObject en S3) y requieren un Trail dedicado de pago.",
+    "analogy": "Management Events registra cuando se crea o modifica una cuenta bancaria; Data Events registra cada depósito o retiro individual de 5 centavos.",
+    "inLab": "Auditamos 'AttachRolePolicy' en Event History; el profesor enfatizó que GetObject y PutObject no aparecen allí por ser Data Events."
   },
   {
-    term: "Arquitectura Orientada a Eventos (Serverless)",
-    lab: "S07",
-    badge: "Modernización",
-    simple: "Patrón desacoplado donde los componentes reaccionan a cambios de estado emitidos por un productor (S3) mediante la ejecución efímera de funciones (Lambda).",
-    analogy: "Un timbre que suena solo cuando llega un paquete, en lugar de mantener a una persona esperando 24/7 en la puerta.",
-    inLab: "La subida de 'incoming/order-001.json' generó el evento 'ObjectCreated:Put' que invocó a Lambda durante escasos ~2 milisegundos."
+    "term": "Infraestructura como Código (IaC)",
+    "lab": "S06",
+    "level": "Fundamento Atómico",
+    "badge": "IaC · Paradigma",
+    "simple": "La práctica de ingeniería de definir, aprovisionar y gestionar infraestructura computacional (servidores, redes, cortafuegos, almacenamiento) mediante especificaciones declarativas y archivos de código legibles por humanos y máquinas, en lugar de configuraciones manuales interactivas en consolas web.",
+    "analogy": "En lugar de construir un edificio poniendo ladrillos a pulso y de memoria cada vez, tienes el plano arquitectónico computarizado en AutoCAD que una impresora 3D puede replicar exactamente mil veces de forma idéntica.",
+    "inLab": "En S06 no se hizo clic manual en consolas para crear la EC2 o la alarma: se codificó la infraestructura completa en el archivo declarativo 's06-ops-cloudformation.yaml'."
   },
   {
-    term: "Execution Role vs Resource-based Policy",
-    lab: "S07",
-    badge: "Seguridad en Lambda",
-    simple: "Resource-based Policy: autoriza la invocación entrante (de S3 a Lambda). Execution Role: autoriza las llamadas salientes (de Lambda a CloudWatch Logs).",
-    analogy: "Resource-based policy es la autorización que permite a la oficina postal tocar a tu puerta; Execution Role es tu credencial para redactar reportes en el archivo central.",
-    inLab: "Al configurar el trigger de S3 se generó la Resource-based policy; el Execution Role 'dcl-dev-role-lambda-s07' se configuró exclusivamente con permisos de escritura de logs."
+    "term": "AWS CloudFormation",
+    "lab": "S06",
+    "level": "Fundamento Atómico",
+    "badge": "IaC · Servicio",
+    "simple": "El servicio nativo de AWS para implementar Infraestructura como Código. CloudFormation procesa plantillas declarativas en YAML o JSON, calcula automáticamente el orden y grafo de dependencias de los componentes, y aprovisiona o actualiza los recursos de forma atómica y coordinada.",
+    "analogy": "El maestro de obra general que recibe los planos de la casa y coordina a los electricistas, plomeros y albañiles para entregar la obra terminada sin que tú tengas que coordinar obrero por obrero.",
+    "inLab": "Usamos CloudFormation para crear el stack 'dcl-dev-stack-ops-s06', aplicar una actualización in-place de v1 a v2, y finalmente destruir todo el entorno con un único comando declarativo."
   },
   {
-    term: "Filtros de Notificación S3 (Prefix & Suffix)",
-    lab: "S07",
-    badge: "Disparadores de Eventos",
-    simple: "Criterios de coincidencia en el productor de eventos que restringen el disparo de notificaciones según el prefijo (carpeta) y sufijo (extensión) del objeto.",
-    analogy: "Filtrar la bandeja de correspondencia para tramitar únicamente cartas que provengan de la carpeta 'incoming/' y terminen en formato '.json'.",
-    inLab: "Se configuró Prefix='incoming/' y Suffix='.json', previniendo activamente bucles infinitos de auto-invocación recursiva."
+    "term": "CloudFormation Template (Plantilla)",
+    "lab": "S06",
+    "level": "Fundamento Atómico",
+    "badge": "CloudFormation · Código",
+    "simple": "El archivo de texto estructurado (en YAML o JSON) que describe el estado deseado de los recursos en AWS. Contiene secciones formales como 'Parameters' (valores que ingresa el usuario al desplegar), 'Resources' (los componentes de AWS que se deben crear con sus propiedades) y 'Outputs' (valores exportados tras el despliegue exitoso).",
+    "analogy": "La receta escrita de un plato gastronómico o las instrucciones de armado de IKEA: describe los ingredientes necesarios y cómo deben ensamblarse las piezas.",
+    "inLab": "Validamos la sintaxis del template con 'aws cloudformation validate-template' antes de desplegarlo, confirmando que la plantilla no tenía errores gramaticales."
   },
   {
-    term: "Log Group Precreado y Retención",
-    lab: "S07",
-    badge: "CloudWatch Logs",
-    simple: "Creación anticipada del contenedor de logs en CloudWatch con política de retención explícita (1 día), acotando los permisos requeridos por el rol de Lambda.",
-    analogy: "Habilitar un cuaderno de registros con vigencia de un día para que el operador solo tenga permiso de escribir, sin facultades para crear cuadernos arbitrarios.",
-    inLab: "Precrear '/aws/lambda/dcl-dev-order-event-s07' permitió retirar 'logs:CreateLogGroup' del rol, dejando únicamente 'CreateLogStream' y 'PutLogEvents'."
+    "term": "CloudFormation Stack (Pila de Recursos)",
+    "lab": "S06",
+    "level": "Fundamento Atómico",
+    "badge": "CloudFormation · Ciclo de Vida",
+    "simple": "La unidad viva de despliegue que agrupa todos los recursos físicos creados en AWS a partir de una plantilla. Si la creación de un recurso falla, CloudFormation ejecuta un Rollback automático para evitar estados inconsistentes. Al eliminar el stack, todos sus recursos asociados se destruyen de manera limpia y sincronizada.",
+    "analogy": "El mueble de oficina completamente ensamblado y en uso. Si decides mudarte o desecharlo, no desarmas tornillo por tornillo: retiras el mueble entero como un solo bloque.",
+    "inLab": "Monitoreamos el stack hasta alcanzar 'CREATE_COMPLETE' y luego realizamos el cleanup ejecutando 'Delete stack', eliminando la EC2, el SG y la alarma en un solo paso."
   },
   {
-    term: "Garantía de Entrega At-Least-Once",
-    lab: "S07",
-    badge: "Semántica de Eventos",
-    simple: "Garantía de los sistemas de mensajería distribuida donde AWS asegura que todo evento llegará al menos una vez al consumidor, pudiendo presentar duplicados esporádicos.",
-    analogy: "Un mensajero que ante la duda de si recibiste el mensaje, te entrega una segunda copia de seguridad.",
-    inLab: "La presencia eventual de dos ejecuciones en CloudWatch para un mismo objeto es inherente a la arquitectura distribuida de Amazon S3 y no un error de diseño."
+    "term": "Amazon CloudWatch",
+    "lab": "S06",
+    "level": "Fundamento Atómico",
+    "badge": "Observabilidad · Monitoreo",
+    "simple": "El servicio integral de monitoreo, telemetría y observabilidad de AWS. Recolecta datos operacionales en forma de registros (Logs), métricas numéricas con marcas temporales (Metrics) y eventos del sistema, permitiendo visualizar el rendimiento del sistema y activar alarmas automáticas ante anomalías.",
+    "analogy": "El tablero de instrumentos de un avión o automóvil, que te indica en tiempo real la velocidad, temperatura del motor, presión de aceite y enciende testigos luminosos de aviso.",
+    "inLab": "CloudWatch monitoreó el consumo de CPU de la instancia virtual y evaluó las condiciones matemáticas de la alarma ante la sobrecarga inducida."
   },
   {
-    term: "Baseline S01 (Infraestructura Base Persistente)",
-    lab: "S05",
-    badge: "Gobernanza Cloud",
-    simple: "Topología de red fundacional ('dcl-dev-vpc' 10.20.0.0/16 con subredes Multi-AZ) diseñada para ser inmutable y compartida entre laboratorios.",
-    analogy: "El terreno y acometidas principales de una urbanización, sobre los cuales se construyen estructuras modulares transitorias.",
-    inLab: "En cada sesión se despliegan recursos temporales y se destruyen en el cleanup garantizando que el Baseline S01 permanezca intacto."
+    "term": "Métrica en CloudWatch (Metrics & Datapoints)",
+    "lab": "S06",
+    "level": "Fundamento Atómico",
+    "badge": "CloudWatch · Telemetría",
+    "simple": "Una variable numérica cuantitativa con marca de tiempo (timestamp) que mide el comportamiento o rendimiento de un recurso en AWS (ejemplo: 'CPUUtilization', 'NetworkIn', 'DiskReadOps'). Cada punto de dato ('datapoint') emitido por el hipervisor o servicio contiene un valor numérico, una hora exacta y dimensiones asociadas (como InstanceId).",
+    "analogy": "La gráfica de signos vitales de un paciente tomada cada 5 minutos en un hospital: 36.5°C a las 10:00, 37.0°C a las 10:05, 38.8°C a las 10:10.",
+    "inLab": "Visualizamos los datapoints de 'CPUUtilization' emitidos cada 5 minutos por la EC2, evidenciando el salto abrupto al 100% de uso de CPU originado por el script de UserData."
+  },
+  {
+    "term": "Alarma de CloudWatch",
+    "lab": "S06",
+    "level": "Fundamento Atómico",
+    "badge": "CloudWatch · Detección",
+    "simple": "Un evaluador automatizado de reglas que vigila una métrica específica a lo largo del tiempo y compara sus valores contra un umbral (Threshold) matemático. Una alarma transiciona entre tres estados: 'OK' (métrica dentro de límites normales), 'ALARM' (métrica violando el umbral) e 'INSUFFICIENT_DATA' (no hay suficientes datapoints para evaluar).",
+    "analogy": "El sensor de humo del techo. No mide la temperatura ambiental ni cuántas personas hay en el salón: solo evalúa si las partículas de humo superan el umbral seguro y suena la sirena.",
+    "inLab": "Configuramos 'CpuHighAlarm' con un umbral '>= 70%' sobre el promedio de CPU, observando cómo transitó de INSUFFICIENT_DATA a ALARM tras acumular dos períodos de 5 minutos."
+  },
+  {
+    "term": "Amazon EC2 (Elastic Compute Cloud)",
+    "lab": "S06",
+    "level": "Fundamento Atómico",
+    "badge": "Cómputo · Máquinas Virtuales",
+    "simple": "El servicio central de infraestructura de cómputo en la nube de AWS que proporciona capacidad de servidor escalable y configurable en forma de máquinas virtuales (instancias) bajo demanda en los centros de datos de AWS.",
+    "analogy": "Alquilar un servidor físico en un centro de datos por horas o segundos, pudiendo elegir cuántos núcleos de CPU, cuánta memoria RAM y qué sistema operativo utilizar.",
+    "inLab": "Declaramos la instancia 'OpsInstance' tipo 't3.micro' con Amazon Linux 2023, conectada a la Subnet A de la VPC del baseline sin IP pública."
+  },
+  {
+    "term": "Logical ID vs Physical ID",
+    "lab": "S06",
+    "level": "Mecanismo Avanzado",
+    "badge": "CloudFormation · Mapeo",
+    "simple": "El 'Logical ID' es el alias identificador constante definido en la plantilla YAML (ej. OpsInstance, CpuHighAlarm). El 'Physical ID' es el identificador real y único asignado por AWS al instanciar el recurso en la infraestructura (ej. i-0abcd1234ef567890).",
+    "analogy": "El plano dice 'Dormitorio Principal' (Logical ID); en la vida real es la habitación con el número de placa 204B en el segundo piso (Physical ID).",
+    "inLab": "En la pestaña Resources de CloudFormation mapeamos 'OpsInstance' con su 'i-...' físico real y 'CpuHighAlarm' con el nombre físico de la alarma."
+  },
+  {
+    "term": "Update sin Reemplazo (In-Place)",
+    "lab": "S06",
+    "level": "Mecanismo Avanzado",
+    "badge": "CloudFormation · Ciclo de Vida",
+    "simple": "Actualización de un stack de CloudFormation donde la modificación de una propiedad no destructiva (como un Tag o metadato) se aplica sobre el recurso existente sin destruirlo ni regenerar su identificador físico (Physical ID).",
+    "analogy": "Pintar la fachada de tu casa o cambiar el letrero de la puerta: la casa sigue siendo la misma y no tuviste que demolerla ni volver a construirla.",
+    "inLab": "Cambiamos LabRevision de v1 a v2 en el template; el stack pasó a UPDATE_COMPLETE conservando intacto el mismo 'InstanceId' de la EC2."
+  },
+  {
+    "term": "Basic Monitoring en Amazon EC2",
+    "lab": "S06",
+    "level": "Mecanismo Avanzado",
+    "badge": "CloudWatch · Frecuencia",
+    "simple": "Nivel de monitoreo gratuito por defecto en Amazon EC2 donde el hipervisor emite métricas a CloudWatch en intervalos fijos de 5 minutos (300 segundos). El monitoreo detallado (Detailed Monitoring) cuesta extra y emite cada 1 minuto.",
+    "analogy": "Un guardia que hace rondas de inspección cada 5 minutos exactos; no puede darte reportes de lo que ocurrió en el minuto intermedio.",
+    "inLab": "Dado que usamos Basic Monitoring (Period=300 s), el experimento requirió una carga de CPU sostenida de 15 minutos para asegurar dos ventanas completas de evaluación."
+  },
+  {
+    "term": "Period, EvaluationPeriods y DatapointsToAlarm",
+    "lab": "S06",
+    "level": "Mecanismo Avanzado",
+    "badge": "CloudWatch · Matemáticas",
+    "simple": "'Period' es la duración de cada ventana de agregación (ej. 300 s). 'EvaluationPeriods' es el número de períodos recientes que se inspeccionan. 'DatapointsToAlarm' es el número de esos períodos que deben haber superado el umbral para disparar la alarma.",
+    "analogy": "Para diagnosticar fiebre recurrente, el médico exige que la temperatura supere 38°C en al menos 2 tomas consecutivas de 5 minutos antes de ordenar el ingreso hospitalario.",
+    "inLab": "Configuramos Period=300, EvaluationPeriods=2 y DatapointsToAlarm=2: la alarma exigió 10 minutos continuos (dos ventanas de 5 min) por encima del 70% para transicionar a ALARM."
+  },
+  {
+    "term": "UserData en Amazon EC2",
+    "lab": "S06",
+    "level": "Mecanismo Avanzado",
+    "badge": "EC2 · Automatización",
+    "simple": "Script de inicialización (típicamente bash en Linux) que se ejecuta una única vez con privilegios de root durante el primer arranque de una instancia EC2 a través de cloud-init.",
+    "analogy": "El instructivo de puesta en marcha que un robot ejecuta automáticamente la primera vez que se conecta a la energía eléctrica.",
+    "inLab": "Inyectamos en Base64 un script bash con dos bucles infinitos calculando operaciones durante 900 segundos (timeout 900) para elevar la CPU al 100% de manera autónoma sin requerir paquetes ni red."
+  },
+  {
+    "term": "Serverless (Computación sin Servidor)",
+    "lab": "S07",
+    "level": "Fundamento Atómico",
+    "badge": "Serverless · Paradigma",
+    "simple": "Modelo de ejecución en la nube donde el desarrollador construye y ejecuta aplicaciones sin aprovisionar, administrar, parchar ni escalar servidores. AWS asume toda la gestión de infraestructura física, sistema operativo y capacidad; el cliente paga estrictamente por el tiempo de ejecución consumido (en milisegundos) y $0.00 cuando no hay solicitudes.",
+    "analogy": "En vez de comprar o alquilar un automóvil las 24 horas del día (pagando seguro y estacionamiento aunque no lo uses), utilizas un servicio como Uber: pagas únicamente por los minutos exactos del trayecto.",
+    "inLab": "Reemplazamos la necesidad de tener una máquina virtual EC2 encendida continuamente esperando pedidos por una función Serverless que solo despierta cuando se sube un archivo a S3."
+  },
+  {
+    "term": "AWS Lambda",
+    "lab": "S07",
+    "level": "Fundamento Atómico",
+    "badge": "Serverless · Cómputo FaaS",
+    "simple": "El servicio de cómputo Serverless 'Function-as-a-Service' (FaaS) de AWS. Ejecuta código en respuesta a eventos de forma totalmente administrada, escalando automáticamente desde cero hasta miles de ejecuciones concurrentes en milisegundos y con alta disponibilidad Multi-AZ nativa.",
+    "analogy": "Un interruptor de luz con sensor de movimiento: mientras no haya nadie en el pasillo consume cero energía; en el instante exacto en que alguien cruza la puerta, la luz se enciende al milisegundo.",
+    "inLab": "Creamos la función Lambda 'dcl-dev-order-event-s07' con runtime Python 3.14 y arquitectura x86_64 para procesar los eventos de pedidos."
+  },
+  {
+    "term": "Función Lambda y Handler",
+    "lab": "S07",
+    "level": "Fundamento Atómico",
+    "badge": "Lambda · Código",
+    "simple": "La unidad básica de despliegue en AWS Lambda. El 'Handler' es el método o función específica dentro del código fuente (por ejemplo: 'def lambda_handler(event, context):') que el runtime de AWS invoca como punto de entrada cada vez que la función es disparada por un evento.",
+    "analogy": "La ventanilla de recepción de una empresa. La oficina tiene muchas dependencias, pero cada vez que llega una carta, el recepcionista (Handler) la recibe y lee quién la manda y qué contiene.",
+    "inLab": "El handler recibió el objeto JSON inyectado por S3, parseó la metadata del pedido ('order-001.json') y emitió un registro estructurado a CloudWatch Logs."
+  },
+  {
+    "term": "Evento / Trigger en AWS",
+    "lab": "S07",
+    "level": "Fundamento Atómico",
+    "badge": "Event-Driven · Integración",
+    "simple": "Un mensaje estructurado en formato JSON emitido por un servicio emisor (productor de eventos, como Amazon S3 al crearse un objeto) que dispara automáticamente la invocación de un servicio receptor (consumidor, como AWS Lambda).",
+    "analogy": "La campana de una puerta o el timbre del horno: cuando el pastel termina de hornearse, suena la campana avisándole al cocinero que debe intervenir.",
+    "inLab": "Configuramos un trigger de tipo 'All object create events' ('s3:ObjectCreated:*') en el bucket para notificar automáticamente a la función Lambda."
+  },
+  {
+    "term": "CloudWatch Logs (Log Group y Log Stream)",
+    "lab": "S07",
+    "level": "Fundamento Atómico",
+    "badge": "CloudWatch · Logs",
+    "simple": "El subsistema de CloudWatch para almacenamiento y consulta de registros de texto. Un 'Log Group' es el contenedor principal que define la retención temporal (cuántos días se conservan los logs) y permisos; un 'Log Stream' es una secuencia cronológica individual de eventos de log emitida por una instancia específica de ejecución de Lambda.",
+    "analogy": "El Log Group es el archivador de oficina etiquetado 'Auditoría de Pedidos', y cada Log Stream es una carpeta individual que contiene las hojas escritas durante un turno específico.",
+    "inLab": "Precreamos el Log Group '/aws/lambda/dcl-dev-order-event-s07' con retención estricta de 1 día antes de crear la función, asegurando gobernanza de costos y mínimo privilegio."
+  },
+  {
+    "term": "Arquitectura Orientada a Eventos (Serverless EDA)",
+    "lab": "S07",
+    "level": "Mecanismo Avanzado",
+    "badge": "Arquitectura · EDA",
+    "simple": "Patrón de diseño arquitectónico donde los componentes se comunican de manera asíncrona desacoplada mediante la emisión y consumo de eventos, eliminando la necesidad de que los servicios se conozcan directamente o mantengan servidores sondeando activamente (polling).",
+    "analogy": "Un buzón de correo postal: el cartero deposita la carta y sigue su camino; tú la recoges cuando te convenga sin que el cartero tenga que esperarte en la puerta.",
+    "inLab": "S3 emitió el evento al recibir 'order-001.json' y Lambda se activó de forma instantánea sin intermediación de servidores de sondeo."
+  },
+  {
+    "term": "Execution Role vs Resource-based Policy",
+    "lab": "S07",
+    "level": "Mecanismo Avanzado",
+    "badge": "Seguridad Lambda",
+    "simple": "El 'Execution Role' autoriza a la función Lambda a interactuar con otros servicios de AWS (como escribir logs en CloudWatch). La 'Resource-based Policy' autoriza a un servicio externo (como el bucket de S3) a invocar la función Lambda.",
+    "analogy": "El Execution Role es la billetera y credenciales que Lambda lleva consigo para trabajar; la Resource-based Policy es la cerradura en la puerta de Lambda que le permite a S3 tocar el timbre.",
+    "inLab": "El Execution Role solo concedió logs:CreateLogStream y logs:PutLogEvents (sin permisos a S3). La autorización para que S3 invoque a Lambda se configuró en la Resource-based policy de la función."
+  },
+  {
+    "term": "Filtros de Notificación S3 (Prefix & Suffix)",
+    "lab": "S07",
+    "level": "Mecanismo Avanzado",
+    "badge": "S3 · Reglas de Eventos",
+    "simple": "Reglas de acotamiento aplicadas sobre la configuración de notificaciones del bucket que restringen el disparo de eventos exclusivamente a objetos que comiencen con un prefijo exacto y terminen con una extensión o sufijo determinado.",
+    "analogy": "Un filtro en tu correo electrónico que solo envía a tu teléfono las alertas de mensajes que provengan de 'pedidos/' y terminen en '.pdf'.",
+    "inLab": "Configuramos Prefix='incoming/' y Suffix='.json', asegurando que subir archivos en la raíz o con extensiones como '.txt' no active la función Lambda ni genere costos."
+  },
+  {
+    "term": "Garantía de Entrega At-Least-Once",
+    "lab": "S07",
+    "level": "Mecanismo Avanzado",
+    "badge": "Sistemas Distribuidos",
+    "simple": "Semántica de entrega de eventos en sistemas distribuidos de AWS donde la plataforma garantiza que cada evento se entregará al menos una vez, existiendo una probabilidad remota de entregas duplicadas. Por ello, las funciones en producción deben diseñarse de forma idempotente.",
+    "analogy": "Un mensajero insistente que, ante la mínima duda de si el timbre sonó bien, vuelve a tocar la puerta por si acaso para no dejar el paquete desatendido.",
+    "inLab": "El profesor especificó que una invocación duplicada ocasional es normal por diseño en S3 Event Notifications y no representa un fallo en la infraestructura del laboratorio."
+  },
+  {
+    "term": "Baseline S01 (Infraestructura Base Persistente)",
+    "lab": "S05",
+    "level": "Mecanismo Avanzado",
+    "badge": "VPC Baseline",
+    "simple": "La infraestructura de red compartida e inmutable creada en la Semana 1 ('dcl-dev-vpc' con CIDR 10.20.0.0/16 y dos subnets en distintas AZs). Es el único componente que persiste entre todos los laboratorios y que nunca debe modificarse ni destruirse durante los cleanups.",
+    "analogy": "El terreno y los cimientos de la propiedad. Cada laboratorio levanta una carpa o estructura temporal en el patio, pero al finalizar el evento la carpa se desmonta y los cimientos quedan intactos.",
+    "inLab": "Tanto en S05, S06 como en S07, la regla cardinal de cleanup exige eliminar todos los recursos temporales creados asegurando que el Baseline S01 quede exactamente en su estado original."
   }
 ];
 
-// =============================================================================
-// 2. DETALLE PASO A PASO TAL CUAL ESTÁ EN LAS GUÍAS DE LOS LABORATORIOS
-// =============================================================================
 const labsData = {
   lab5: {
     title: "Laboratorio Evolutivo 05: Seguridad y Gobernanza de Digital Café Luna en AWS",

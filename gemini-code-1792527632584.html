@@ -42,7 +42,7 @@
       <!-- Barra de Navegación por Módulos -->
       <nav class="site-nav" id="main-nav" aria-label="Navegación principal">
         <button class="nav-tab-btn active" id="tab-glosario" onclick="switchTab('glosario')">
-          <span>📚</span> 1. Glosario Técnico y Fundamentos
+          <span>📚</span> 1. Glosario Técnico y Fundamentos (37)
         </button>
         <button class="nav-tab-btn" id="tab-labs" onclick="switchTab('labs')">
           <span>🛠️</span> 2. Laboratorios Paso a Paso (S05 · S06 · S07)
@@ -70,26 +70,26 @@
       <section class="tab-pane active" id="pane-glosario">
         <div class="section-banner">
           <span class="banner-tag">Módulo 1 · Fundamentos de Arquitectura</span>
-          <h2>Glosario Arquitectónico y Conceptos Esenciales</h2>
+          <h2>Glosario Arquitectónico Completo: Fundamentos Atómicos & Mecanismos Avanzados</h2>
           <p>
-            Domina la distinción rigurosa de cada componente en la nube. Cada término incluye su definición formal,
-            una analogía práctica para interiorizar el concepto y la evidencia exacta de cómo se aplicó en los laboratorios.
+            Comprende la nube desde su base esencial: primero definimos qué es un Rol, una Política, un Bucket o una Alarma,
+            y luego profundizamos en sus comportamientos y decisiones operacionales. Incluye analogías intuitivas y su aplicación empírica en el laboratorio.
           </p>
 
           <!-- Filtros y Búsqueda -->
           <div class="glossary-controls">
             <div class="filter-btn-group">
-              <button class="filter-pill-btn active" onclick="filterGlossary('all', this)">Todos los Conceptos (20)</button>
-              <button class="filter-pill-btn" onclick="filterGlossary('S05', this)">Lab 05 · Seguridad & IAM</button>
-              <button class="filter-pill-btn" onclick="filterGlossary('S06', this)">Lab 06 · IaC & CloudWatch</button>
-              <button class="filter-pill-btn" onclick="filterGlossary('S07', this)">Lab 07 · Serverless & Eventos</button>
+              <button class="filter-pill-btn active" onclick="filterGlossary('all', this)">Todos los Conceptos (37)</button>
+              <button class="filter-pill-btn" onclick="filterGlossary('S05', this)">Lab 05 · Seguridad & IAM (15)</button>
+              <button class="filter-pill-btn" onclick="filterGlossary('S06', this)">Lab 06 · IaC & CloudWatch (13)</button>
+              <button class="filter-pill-btn" onclick="filterGlossary('S07', this)">Lab 07 · Serverless & Eventos (9)</button>
             </div>
             <div class="search-input-wrapper">
               <span class="search-icon">🔍</span>
               <input type="text"
                      id="glossary-search-input"
                      class="search-input"
-                     placeholder="Buscar concepto, CLI, error..."
+                     placeholder="Buscar concepto (ej: Rol, Policy, ARN, Bucket, Lambda...)"
                      oninput="searchGlossary(this.value)" />
             </div>
           </div>
@@ -98,19 +98,190 @@
         <!-- Cuadrícula Estática de Tarjetas de Glosario -->
         <div class="cards-grid" id="glossary-cards-grid">
 
-          <article class="glossary-card" data-lab="S05">
+          <article class="glossary-card" data-lab="S05" data-level="Fundamento Atómico">
             <div>
               <div class="card-header-meta">
                 <span class="lab-badge s05">S05</span>
-                <span class="card-topic-tag">Red vs Autorización</span>
+                <span style="font-size: 0.68rem; padding: 0.15rem 0.5rem; border-radius: 4px; font-weight: 600; background: rgba(16,185,129,0.15); color: #34d399; border: 1px solid rgba(16,185,129,0.3);">
+                  🔰 Fundamento Atómico
+                </span>
+                <span class="card-topic-tag">IAM · Identidad</span>
               </div>
-              <h3>Reachability (Alcance de Red)</h3>
-              <p class="card-def">Capacidad de un paquete IP para viajar desde una interfaz de red (ENI en EC2) hasta el endpoint del servicio AWS a través de la infraestructura de enrutamiento (IGW, tablas de ruta y Security Groups).</p>
+              <h3>IAM Role (Rol de IAM)</h3>
+              <p class="card-def">Una identidad de IAM definida en la cuenta de AWS que no posee credenciales fijas permanentes (ni contraseñas ni Access Keys). Está concebida para ser asumida temporalmente por servicios (como Amazon EC2 o AWS Lambda), aplicaciones o identidades externas. Al asumirse mediante AWS Security Token Service (STS), este entrega credenciales temporales que rotan y expiran de forma automática.</p>
             </div>
             <div class="card-callouts">
               <div class="callout-box analogy">
                 <strong class="callout-label">💡 Concepto Intuitivo / Analogía Práctica:</strong>
-                <span>Tener una carretera pavimentada y el portón abierto para llegar hasta la puerta del banco. Que puedas pararte en la puerta no significa que el vigilante te deje abrir la caja fuerte.</span>
+                <span>Un carnet o credencial electrónica con chip RFID. No le pertenece a una persona fija; quien lo porte en su turno adquiere los privilegios de esa credencial, y al expirar el turno la tarjeta se desactiva sin dejar llaves maestras físicas tiradas.</span>
+              </div>
+              <div class="callout-box lab-use">
+                <strong class="callout-label">🛠️ Aplicación Exacta en el Laboratorio:</strong>
+                <span>Creamos &#x27;dcl-dev-role-s05&#x27; con entidad de confianza para EC2. La máquina virtual obtuvo permisos para interactuar con S3 asumiendo este rol de forma transparente, sin necesidad de &#x27;aws configure&#x27; ni llaves guardadas en disco.</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="glossary-card" data-lab="S05" data-level="Fundamento Atómico">
+            <div>
+              <div class="card-header-meta">
+                <span class="lab-badge s05">S05</span>
+                <span style="font-size: 0.68rem; padding: 0.15rem 0.5rem; border-radius: 4px; font-weight: 600; background: rgba(16,185,129,0.15); color: #34d399; border: 1px solid rgba(16,185,129,0.3);">
+                  🔰 Fundamento Atómico
+                </span>
+                <span class="card-topic-tag">IAM · Autorización</span>
+              </div>
+              <h3>IAM Policy (Política de IAM)</h3>
+              <p class="card-def">Un documento formal estructurado en sintaxis JSON que define explícitamente los permisos dentro de AWS. Contiene una o más declaraciones (Statements) con 4 elementos cardinales: Effect (Allow o Deny), Action (la operación API permitida o denegada), Resource (el ARN exacto sobre el cual aplica) y opcionalmente Condition. En AWS rige el principio de Denegación Implícita (Implicit Deny): todo lo que no esté explícitamente permitido está prohibido.</p>
+            </div>
+            <div class="card-callouts">
+              <div class="callout-box analogy">
+                <strong class="callout-label">💡 Concepto Intuitivo / Analogía Práctica:</strong>
+                <span>El contrato o reglamento de acceso de un edificio de alta seguridad. Estipula con precisión: &#x27;Se autoriza (Allow) abrir la puerta (Action) únicamente de la oficina 402 (Resource)&#x27;. Si intentas abrir la 403, el guardia te rechaza.</span>
+              </div>
+              <div class="callout-box lab-use">
+                <strong class="callout-label">🛠️ Aplicación Exacta en el Laboratorio:</strong>
+                <span>Creamos la Customer Managed Policy &#x27;dcl-dev-policy-s3-read-allowed-s05&#x27; que concedió únicamente &#x27;s3:GetObject&#x27; sobre el recurso &#x27;arn:aws:s3:::bucket/allowed/*&#x27;.</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="glossary-card" data-lab="S05" data-level="Fundamento Atómico">
+            <div>
+              <div class="card-header-meta">
+                <span class="lab-badge s05">S05</span>
+                <span style="font-size: 0.68rem; padding: 0.15rem 0.5rem; border-radius: 4px; font-weight: 600; background: rgba(16,185,129,0.15); color: #34d399; border: 1px solid rgba(16,185,129,0.3);">
+                  🔰 Fundamento Atómico
+                </span>
+                <span class="card-topic-tag">IAM · Buenas Prácticas</span>
+              </div>
+              <h3>IAM User vs IAM Role</h3>
+              <p class="card-def">Un IAM User es una identidad de larga duración asociada a una persona específica, que utiliza credenciales estáticas permanentes (usuario/contraseña para consola o Access Keys estáticas para CLI). Un IAM Role es una identidad asumible por servicios o aplicaciones que usa credenciales temporales generadas por STS sin almacenar llaves fijas. Las buenas prácticas de AWS prohíben categóricamente usar IAM Users o Access Keys estáticas en cargas de trabajo.</p>
+            </div>
+            <div class="card-callouts">
+              <div class="callout-box analogy">
+                <strong class="callout-label">💡 Concepto Intuitivo / Analogía Práctica:</strong>
+                <span>Un candado con llave de bronce que te llevas a casa (User: si la pierdes, cualquiera entra) frente a una cerradura digital con código que cambia cada hora (Role: si alguien copia el código, en poco tiempo ya no sirve).</span>
+              </div>
+              <div class="callout-box lab-use">
+                <strong class="callout-label">🛠️ Aplicación Exacta en el Laboratorio:</strong>
+                <span>El paso Preflight 5 del profesor prohíbe taxativamente crear access keys fijas o ejecutar &#x27;aws configure&#x27; en la EC2. La identidad se resolvió 100% mediante el IAM Role.</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="glossary-card" data-lab="S05" data-level="Fundamento Atómico">
+            <div>
+              <div class="card-header-meta">
+                <span class="lab-badge s05">S05</span>
+                <span style="font-size: 0.68rem; padding: 0.15rem 0.5rem; border-radius: 4px; font-weight: 600; background: rgba(16,185,129,0.15); color: #34d399; border: 1px solid rgba(16,185,129,0.3);">
+                  🔰 Fundamento Atómico
+                </span>
+                <span class="card-topic-tag">AWS · Nomenclatura</span>
+              </div>
+              <h3>ARN (Amazon Resource Name)</h3>
+              <p class="card-def">El identificador estándar, unívoco e inequívoco a nivel global para cualquier recurso creado dentro de la nube de AWS. Sigue la estructura jerárquica: &#x27;arn:partition:service:region:account-id:resource-type/resource-id&#x27;. Permite al motor de IAM evaluar con precisión matemática el elemento &#x27;Resource&#x27; de una política.</p>
+            </div>
+            <div class="card-callouts">
+              <div class="callout-box analogy">
+                <strong class="callout-label">💡 Concepto Intuitivo / Analogía Práctica:</strong>
+                <span>La dirección postal estandarizada internacional (País, Código Postal, Ciudad, Calle, Número de Puerta) que garantiza que un paquete llegue a esa oficina exacta en todo el planeta.</span>
+              </div>
+              <div class="callout-box lab-use">
+                <strong class="callout-label">🛠️ Aplicación Exacta en el Laboratorio:</strong>
+                <span>Definimos el recurso exacto en la política como &#x27;arn:aws:s3:::dcl-s05-teamXX-&lt;account-id&gt;/allowed/*&#x27;, delimitando el alcance únicamente a los objetos bajo ese prefijo.</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="glossary-card" data-lab="S05" data-level="Fundamento Atómico">
+            <div>
+              <div class="card-header-meta">
+                <span class="lab-badge s05">S05</span>
+                <span style="font-size: 0.68rem; padding: 0.15rem 0.5rem; border-radius: 4px; font-weight: 600; background: rgba(16,185,129,0.15); color: #34d399; border: 1px solid rgba(16,185,129,0.3);">
+                  🔰 Fundamento Atómico
+                </span>
+                <span class="card-topic-tag">S3 · Almacenamiento</span>
+              </div>
+              <h3>Amazon S3 y S3 Bucket</h3>
+              <p class="card-def">Amazon Simple Storage Service (S3) es el servicio de almacenamiento de objetos escalable de AWS. Un &#x27;Bucket&#x27; es el contenedor raíz de primer nivel donde se alojan los objetos. Los buckets se crean en una región geográfica específica pero sus nombres deben ser únicos globalmente en toda la infraestructura mundial de AWS. Incluyen control de acceso público (Block Public Access) y cifrado por defecto.</p>
+            </div>
+            <div class="card-callouts">
+              <div class="callout-box analogy">
+                <strong class="callout-label">💡 Concepto Intuitivo / Analogía Práctica:</strong>
+                <span>Un hangar de contenedores marítimos. El bucket es un contenedor cerrado con un código de serie mundial irrepetible dentro del cual guardas cajas de datos.</span>
+              </div>
+              <div class="callout-box lab-use">
+                <strong class="callout-label">🛠️ Aplicación Exacta en el Laboratorio:</strong>
+                <span>Creamos el bucket privado &#x27;dcl-s05-teamXX-&lt;account-id&gt;&#x27; en &#x27;us-east-1&#x27; con Block Public Access 100% activo y cifrado SSE-S3 por defecto.</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="glossary-card" data-lab="S05" data-level="Fundamento Atómico">
+            <div>
+              <div class="card-header-meta">
+                <span class="lab-badge s05">S05</span>
+                <span style="font-size: 0.68rem; padding: 0.15rem 0.5rem; border-radius: 4px; font-weight: 600; background: rgba(16,185,129,0.15); color: #34d399; border: 1px solid rgba(16,185,129,0.3);">
+                  🔰 Fundamento Atómico
+                </span>
+                <span class="card-topic-tag">S3 · Objetos</span>
+              </div>
+              <h3>Objeto en S3 (Data, Metadata y Key)</h3>
+              <p class="card-def">La entidad fundamental almacenada en S3. A diferencia de un sistema de archivos tradicional (disco duro con carpetas jerárquicas), S3 es un espacio plano de almacenamiento de objetos. Cada objeto consta de sus datos binarios, metadatos y una &#x27;Key&#x27; (clave o identificador alfanumérico completo). Los nombres que parecen directorios (ej. &#x27;allowed/context.txt&#x27;) son solo cadenas de texto donde &#x27;allowed/&#x27; es un prefijo, no una carpeta física.</p>
+            </div>
+            <div class="card-callouts">
+              <div class="callout-box analogy">
+                <strong class="callout-label">💡 Concepto Intuitivo / Analogía Práctica:</strong>
+                <span>Una pared gigante con casilleros etiquetados. No hay una habitación dentro de otra habitación: solo hay casilleros con etiquetas largas escritas en el frente.</span>
+              </div>
+              <div class="callout-box lab-use">
+                <strong class="callout-label">🛠️ Aplicación Exacta en el Laboratorio:</strong>
+                <span>Cargamos dos objetos independientes en el mismo bucket: &#x27;allowed/context.txt&#x27; y &#x27;restricted/secret.txt&#x27; para aislar y contrastar la variable de autorización en el acceso.</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="glossary-card" data-lab="S05" data-level="Fundamento Atómico">
+            <div>
+              <div class="card-header-meta">
+                <span class="lab-badge s05">S05</span>
+                <span style="font-size: 0.68rem; padding: 0.15rem 0.5rem; border-radius: 4px; font-weight: 600; background: rgba(16,185,129,0.15); color: #34d399; border: 1px solid rgba(16,185,129,0.3);">
+                  🔰 Fundamento Atómico
+                </span>
+                <span class="card-topic-tag">Gobernanza &amp; Auditoría</span>
+              </div>
+              <h3>AWS CloudTrail</h3>
+              <p class="card-def">El servicio central de auditoría, gobernanza y registro operacional de AWS. CloudTrail registra de forma inmutable cada llamada a las APIs de AWS realizada en la cuenta (desde la Consola, AWS CLI o SDKs), capturando quién solicitó la acción (Identity/Principal), qué acción solicitó (EventName), cuándo (EventTime), desde qué IP de origen y con qué parámetros.</p>
+            </div>
+            <div class="card-callouts">
+              <div class="callout-box analogy">
+                <strong class="callout-label">💡 Concepto Intuitivo / Analogía Práctica:</strong>
+                <span>La cámara de seguridad de circuito cerrado y el libro de firmas en la recepción de un banco que registra quién entra, qué puerta pide abrir y a qué hora exacta.</span>
+              </div>
+              <div class="callout-box lab-use">
+                <strong class="callout-label">🛠️ Aplicación Exacta en el Laboratorio:</strong>
+                <span>En el Paso 7 auditamos CloudTrail Event History para localizar el registro exacto del evento de administración &#x27;AttachRolePolicy&#x27; generado al vincular la política al rol.</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="glossary-card" data-lab="S05" data-level="Mecanismo Avanzado">
+            <div>
+              <div class="card-header-meta">
+                <span class="lab-badge s05">S05</span>
+                <span style="font-size: 0.68rem; padding: 0.15rem 0.5rem; border-radius: 4px; font-weight: 600; background: rgba(147,51,234,0.15); color: #c084fc; border: 1px solid rgba(147,51,234,0.3);">
+                  ⚙️ Mecanismo de Lab
+                </span>
+                <span class="card-topic-tag">Red vs Autorización</span>
+              </div>
+              <h3>Reachability (Alcance de Red)</h3>
+              <p class="card-def">Capacidad de un paquete IP para viajar desde una interfaz de red (ENI en EC2) hasta el endpoint del servicio AWS a través de la infraestructura de enrutamiento (Internet Gateway, tablas de ruta y Security Groups).</p>
+            </div>
+            <div class="card-callouts">
+              <div class="callout-box analogy">
+                <strong class="callout-label">💡 Concepto Intuitivo / Analogía Práctica:</strong>
+                <span>Tener una carretera pavimentada y el portón abierto para llegar hasta la puerta del banco. Que puedas pararte en la puerta no significa que el guardia te deje entrar a la bóveda.</span>
               </div>
               <div class="callout-box lab-use">
                 <strong class="callout-label">🛠️ Aplicación Exacta en el Laboratorio:</strong>
@@ -119,10 +290,13 @@
             </div>
           </article>
 
-          <article class="glossary-card" data-lab="S05">
+          <article class="glossary-card" data-lab="S05" data-level="Mecanismo Avanzado">
             <div>
               <div class="card-header-meta">
                 <span class="lab-badge s05">S05</span>
+                <span style="font-size: 0.68rem; padding: 0.15rem 0.5rem; border-radius: 4px; font-weight: 600; background: rgba(147,51,234,0.15); color: #c084fc; border: 1px solid rgba(147,51,234,0.3);">
+                  ⚙️ Mecanismo de Lab
+                </span>
                 <span class="card-topic-tag">Control de Acceso</span>
               </div>
               <h3>Authorization (Autorización IAM)</h3>
@@ -131,7 +305,7 @@
             <div class="card-callouts">
               <div class="callout-box analogy">
                 <strong class="callout-label">💡 Concepto Intuitivo / Analogía Práctica:</strong>
-                <span>El oficial de seguridad revisando tu identificación contra el libro de registros para decidir si puedes acceder a la bóveda A o a la bóveda B.</span>
+                <span>El guardia revisando tu identificación contra el libro de registros para decidir si tu llave autoriza abrir la caja de seguridad A o la B.</span>
               </div>
               <div class="callout-box lab-use">
                 <strong class="callout-label">🛠️ Aplicación Exacta en el Laboratorio:</strong>
@@ -140,40 +314,22 @@
             </div>
           </article>
 
-          <article class="glossary-card" data-lab="S05">
+          <article class="glossary-card" data-lab="S05" data-level="Mecanismo Avanzado">
             <div>
               <div class="card-header-meta">
                 <span class="lab-badge s05">S05</span>
-                <span class="card-topic-tag">Gestión de Identidades</span>
-              </div>
-              <h3>IAM Role &amp; Credenciales Temporales</h3>
-              <p class="card-def">Identidad de IAM sin credenciales estáticas permanentes, asumida por servicios como EC2 o Lambda mediante AWS Security Token Service (STS) que entrega llaves temporales autogestionadas.</p>
-            </div>
-            <div class="card-callouts">
-              <div class="callout-box analogy">
-                <strong class="callout-label">💡 Concepto Intuitivo / Analogía Práctica:</strong>
-                <span>Un carnet digital con chip de radiofrecuencia que se renueva y expira automáticamente cada pocas horas, eliminando el riesgo de extraviar llaves maestras físicas.</span>
-              </div>
-              <div class="callout-box lab-use">
-                <strong class="callout-label">🛠️ Aplicación Exacta en el Laboratorio:</strong>
-                <span>Eliminó la necesidad de ejecutar &#x27;aws configure&#x27; o almacenar credenciales fijas (Access Key / Secret Key) dentro de la EC2 o en el código de Lambda.</span>
-              </div>
-            </div>
-          </article>
-
-          <article class="glossary-card" data-lab="S05">
-            <div>
-              <div class="card-header-meta">
-                <span class="lab-badge s05">S05</span>
+                <span style="font-size: 0.68rem; padding: 0.15rem 0.5rem; border-radius: 4px; font-weight: 600; background: rgba(147,51,234,0.15); color: #c084fc; border: 1px solid rgba(147,51,234,0.3);">
+                  ⚙️ Mecanismo de Lab
+                </span>
                 <span class="card-topic-tag">EC2 + IAM</span>
               </div>
               <h3>Instance Profile (Perfil de Instancia)</h3>
-              <p class="card-def">Contenedor que permite asociar un rol de IAM a una instancia EC2 en tiempo de inicialización o en caliente.</p>
+              <p class="card-def">Contenedor que permite asociar un rol de IAM a una instancia EC2 en tiempo de inicialización o en caliente para que el servicio de metadatos de la instancia (IMDS) entregue las credenciales temporales del rol a las aplicaciones que corren dentro del servidor.</p>
             </div>
             <div class="card-callouts">
               <div class="callout-box analogy">
                 <strong class="callout-label">💡 Concepto Intuitivo / Analogía Práctica:</strong>
-                <span>El porta-carnet físico con cordón donde insertas el chip de permisos para que el servidor lo porte consigo.</span>
+                <span>El porta-carnet físico con cordón donde insertas el chip de permisos para que la máquina virtual lo lleve colgado al cuello.</span>
               </div>
               <div class="callout-box lab-use">
                 <strong class="callout-label">🛠️ Aplicación Exacta en el Laboratorio:</strong>
@@ -182,14 +338,17 @@
             </div>
           </article>
 
-          <article class="glossary-card" data-lab="S05">
+          <article class="glossary-card" data-lab="S05" data-level="Mecanismo Avanzado">
             <div>
               <div class="card-header-meta">
                 <span class="lab-badge s05">S05</span>
+                <span style="font-size: 0.68rem; padding: 0.15rem 0.5rem; border-radius: 4px; font-weight: 600; background: rgba(147,51,234,0.15); color: #c084fc; border: 1px solid rgba(147,51,234,0.3);">
+                  ⚙️ Mecanismo de Lab
+                </span>
                 <span class="card-topic-tag">Estructura JSON</span>
               </div>
               <h3>IAM Policy: Action vs Resource</h3>
-              <p class="card-def">&#x27;Action&#x27; especifica la operación o verbo API permitido o denegado (ej. s3:GetObject). &#x27;Resource&#x27; restringe el objeto o ARN específico sobre el cual recae dicha operación.</p>
+              <p class="card-def">&#x27;Action&#x27; especifica el verbo o método de API permitido o denegado (ej. s3:GetObject). &#x27;Resource&#x27; especifica el objeto o ARN específico sobre el cual recae dicha operación. Cambiar cualquiera de los dos altera el resultado de la autorización.</p>
             </div>
             <div class="card-callouts">
               <div class="callout-box analogy">
@@ -203,14 +362,17 @@
             </div>
           </article>
 
-          <article class="glossary-card" data-lab="S05">
+          <article class="glossary-card" data-lab="S05" data-level="Mecanismo Avanzado">
             <div>
               <div class="card-header-meta">
                 <span class="lab-badge s05">S05</span>
+                <span style="font-size: 0.68rem; padding: 0.15rem 0.5rem; border-radius: 4px; font-weight: 600; background: rgba(147,51,234,0.15); color: #c084fc; border: 1px solid rgba(147,51,234,0.3);">
+                  ⚙️ Mecanismo de Lab
+                </span>
                 <span class="card-topic-tag">Permisos S3</span>
               </div>
               <h3>s3:GetObject vs s3:PutObject</h3>
-              <p class="card-def">&#x27;s3:GetObject&#x27; concede permiso de lectura y descarga de bytes de un objeto existente. &#x27;s3:PutObject&#x27; autoriza la carga, creación o sobrescritura de objetos.</p>
+              <p class="card-def">&#x27;s3:GetObject&#x27; concede permiso de lectura y descarga de bytes de un objeto existente. &#x27;s3:PutObject&#x27; autoriza la carga, creación o sobrescritura de objetos en S3.</p>
             </div>
             <div class="card-callouts">
               <div class="callout-box analogy">
@@ -224,296 +386,602 @@
             </div>
           </article>
 
-          <article class="glossary-card" data-lab="S05">
+          <article class="glossary-card" data-lab="S05" data-level="Mecanismo Avanzado">
             <div>
               <div class="card-header-meta">
                 <span class="lab-badge s05">S05</span>
+                <span style="font-size: 0.68rem; padding: 0.15rem 0.5rem; border-radius: 4px; font-weight: 600; background: rgba(147,51,234,0.15); color: #c084fc; border: 1px solid rgba(147,51,234,0.3);">
+                  ⚙️ Mecanismo de Lab
+                </span>
                 <span class="card-topic-tag">Cifrado en Reposo</span>
               </div>
               <h3>SSE-S3 (Server-Side Encryption)</h3>
-              <p class="card-def">Cifrado del lado del servidor gestionado por Amazon S3 (AES-256). Protege los bloques físicos de datos almacenados en los discos del centro de datos.</p>
+              <p class="card-def">Cifrado del lado del servidor gestionado por S3 con llaves administradas por AWS (AES-256). Protege los datos en reposo contra acceso físico no autorizado al soporte de almacenamiento de AWS.</p>
             </div>
             <div class="card-callouts">
               <div class="callout-box analogy">
                 <strong class="callout-label">💡 Concepto Intuitivo / Analogía Práctica:</strong>
-                <span>Cerrar los archivadores con llave en la bodega del banco. Protege ante el robo del mueble físico, pero no decide si un empleado tiene autorización para consultar los expedientes.</span>
+                <span>Guardar un libro dentro de una caja fuerte de acero blindado. La caja protege contra robos físicos, pero quien tenga autorización formal para abrir la caja puede leer el texto sin problemas.</span>
               </div>
               <div class="callout-box lab-use">
                 <strong class="callout-label">🛠️ Aplicación Exacta en el Laboratorio:</strong>
-                <span>Cifrar el bucket con SSE-S3 demostró que el cifrado en reposo no influye en las decisiones de autorización ni produce errores de AccessDenied para usuarios autorizados.</span>
+                <span>Se verificó que el bucket tuviera SSE-S3 activo, demostrando que el cifrado protege los datos pero NO sustituye ni condiciona las decisiones de autorización de IAM.</span>
               </div>
             </div>
           </article>
 
-          <article class="glossary-card" data-lab="S05">
+          <article class="glossary-card" data-lab="S05" data-level="Mecanismo Avanzado">
             <div>
               <div class="card-header-meta">
                 <span class="lab-badge s05">S05</span>
-                <span class="card-topic-tag">Auditoría &amp; Trazabilidad</span>
+                <span style="font-size: 0.68rem; padding: 0.15rem 0.5rem; border-radius: 4px; font-weight: 600; background: rgba(147,51,234,0.15); color: #c084fc; border: 1px solid rgba(147,51,234,0.3);">
+                  ⚙️ Mecanismo de Lab
+                </span>
+                <span class="card-topic-tag">Auditoría AWS</span>
               </div>
               <h3>CloudTrail: Management vs Data Events</h3>
-              <p class="card-def">Management Events registran operaciones de plano de control (crear roles, asociar políticas). Data Events registran operaciones de plano de datos (leer/escribir objetos S3, invocar Lambdas).</p>
+              <p class="card-def">Management Events registran operaciones del plano de control (crear recursos, modificar roles, asociar políticas como AttachRolePolicy) y se guardan gratis por 90 días en Event History. Data Events registran operaciones de datos de alto volumen (GetObject, PutObject en S3) y requieren un Trail dedicado de pago.</p>
             </div>
             <div class="card-callouts">
               <div class="callout-box analogy">
                 <strong class="callout-label">💡 Concepto Intuitivo / Analogía Práctica:</strong>
-                <span>Management Events es el libro de actas notarial de contratación del personal. Data Events es la cámara que graba cada vez que alguien saca una hoja del cajón.</span>
+                <span>Management Events registra cuando se crea o modifica una cuenta bancaria; Data Events registra cada depósito o retiro individual de 5 centavos.</span>
               </div>
               <div class="callout-box lab-use">
                 <strong class="callout-label">🛠️ Aplicación Exacta en el Laboratorio:</strong>
-                <span>En el Event History de CloudTrail se auditó &#x27;AttachRolePolicy&#x27; (Management Event). No se visualizan &#x27;GetObject&#x27; ni &#x27;PutObject&#x27; porque corresponden a Data Events que requieren trails dedicados.</span>
+                <span>Auditamos &#x27;AttachRolePolicy&#x27; en Event History; el profesor enfatizó que GetObject y PutObject no aparecen allí por ser Data Events.</span>
               </div>
             </div>
           </article>
 
-          <article class="glossary-card" data-lab="S06">
+          <article class="glossary-card" data-lab="S06" data-level="Fundamento Atómico">
             <div>
               <div class="card-header-meta">
                 <span class="lab-badge s06">S06</span>
-                <span class="card-topic-tag">Infraestructura como Código (IaC)</span>
+                <span style="font-size: 0.68rem; padding: 0.15rem 0.5rem; border-radius: 4px; font-weight: 600; background: rgba(16,185,129,0.15); color: #34d399; border: 1px solid rgba(16,185,129,0.3);">
+                  🔰 Fundamento Atómico
+                </span>
+                <span class="card-topic-tag">IaC · Paradigma</span>
               </div>
-              <h3>CloudFormation: Template vs Stack</h3>
-              <p class="card-def">El Template es la declaración declarativa en YAML/JSON del estado deseado. El Stack es la colección unificada de recursos aprovisionados y gestionados colectivamente.</p>
+              <h3>Infraestructura como Código (IaC)</h3>
+              <p class="card-def">La práctica de ingeniería de definir, aprovisionar y gestionar infraestructura computacional (servidores, redes, cortafuegos, almacenamiento) mediante especificaciones declarativas y archivos de código legibles por humanos y máquinas, en lugar de configuraciones manuales interactivas en consolas web.</p>
             </div>
             <div class="card-callouts">
               <div class="callout-box analogy">
                 <strong class="callout-label">💡 Concepto Intuitivo / Analogía Práctica:</strong>
-                <span>El Template es el plano arquitectónico en papel; el Stack es la edificación real construida y lista para operar.</span>
+                <span>En lugar de construir un edificio poniendo ladrillos a pulso y de memoria cada vez, tienes el plano arquitectónico computarizado en AutoCAD que una impresora 3D puede replicar exactamente mil veces de forma idéntica.</span>
               </div>
               <div class="callout-box lab-use">
                 <strong class="callout-label">🛠️ Aplicación Exacta en el Laboratorio:</strong>
-                <span>El archivo fuente fue &#x27;s06-ops-cloudformation.yaml&#x27; y la unidad aprovisionada en la cuenta fue el stack &#x27;dcl-dev-stack-ops-s06&#x27;.</span>
+                <span>En S06 no se hizo clic manual en consolas para crear la EC2 o la alarma: se codificó la infraestructura completa en el archivo declarativo &#x27;s06-ops-cloudformation.yaml&#x27;.</span>
               </div>
             </div>
           </article>
 
-          <article class="glossary-card" data-lab="S06">
+          <article class="glossary-card" data-lab="S06" data-level="Fundamento Atómico">
             <div>
               <div class="card-header-meta">
                 <span class="lab-badge s06">S06</span>
-                <span class="card-topic-tag">CloudFormation</span>
+                <span style="font-size: 0.68rem; padding: 0.15rem 0.5rem; border-radius: 4px; font-weight: 600; background: rgba(16,185,129,0.15); color: #34d399; border: 1px solid rgba(16,185,129,0.3);">
+                  🔰 Fundamento Atómico
+                </span>
+                <span class="card-topic-tag">IaC · Servicio</span>
+              </div>
+              <h3>AWS CloudFormation</h3>
+              <p class="card-def">El servicio nativo de AWS para implementar Infraestructura como Código. CloudFormation procesa plantillas declarativas en YAML o JSON, calcula automáticamente el orden y grafo de dependencias de los componentes, y aprovisiona o actualiza los recursos de forma atómica y coordinada.</p>
+            </div>
+            <div class="card-callouts">
+              <div class="callout-box analogy">
+                <strong class="callout-label">💡 Concepto Intuitivo / Analogía Práctica:</strong>
+                <span>El maestro de obra general que recibe los planos de la casa y coordina a los electricistas, plomeros y albañiles para entregar la obra terminada sin que tú tengas que coordinar obrero por obrero.</span>
+              </div>
+              <div class="callout-box lab-use">
+                <strong class="callout-label">🛠️ Aplicación Exacta en el Laboratorio:</strong>
+                <span>Usamos CloudFormation para crear el stack &#x27;dcl-dev-stack-ops-s06&#x27;, aplicar una actualización in-place de v1 a v2, y finalmente destruir todo el entorno con un único comando declarativo.</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="glossary-card" data-lab="S06" data-level="Fundamento Atómico">
+            <div>
+              <div class="card-header-meta">
+                <span class="lab-badge s06">S06</span>
+                <span style="font-size: 0.68rem; padding: 0.15rem 0.5rem; border-radius: 4px; font-weight: 600; background: rgba(16,185,129,0.15); color: #34d399; border: 1px solid rgba(16,185,129,0.3);">
+                  🔰 Fundamento Atómico
+                </span>
+                <span class="card-topic-tag">CloudFormation · Código</span>
+              </div>
+              <h3>CloudFormation Template (Plantilla)</h3>
+              <p class="card-def">El archivo de texto estructurado (en YAML o JSON) que describe el estado deseado de los recursos en AWS. Contiene secciones formales como &#x27;Parameters&#x27; (valores que ingresa el usuario al desplegar), &#x27;Resources&#x27; (los componentes de AWS que se deben crear con sus propiedades) y &#x27;Outputs&#x27; (valores exportados tras el despliegue exitoso).</p>
+            </div>
+            <div class="card-callouts">
+              <div class="callout-box analogy">
+                <strong class="callout-label">💡 Concepto Intuitivo / Analogía Práctica:</strong>
+                <span>La receta escrita de un plato gastronómico o las instrucciones de armado de IKEA: describe los ingredientes necesarios y cómo deben ensamblarse las piezas.</span>
+              </div>
+              <div class="callout-box lab-use">
+                <strong class="callout-label">🛠️ Aplicación Exacta en el Laboratorio:</strong>
+                <span>Validamos la sintaxis del template con &#x27;aws cloudformation validate-template&#x27; antes de desplegarlo, confirmando que la plantilla no tenía errores gramaticales.</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="glossary-card" data-lab="S06" data-level="Fundamento Atómico">
+            <div>
+              <div class="card-header-meta">
+                <span class="lab-badge s06">S06</span>
+                <span style="font-size: 0.68rem; padding: 0.15rem 0.5rem; border-radius: 4px; font-weight: 600; background: rgba(16,185,129,0.15); color: #34d399; border: 1px solid rgba(16,185,129,0.3);">
+                  🔰 Fundamento Atómico
+                </span>
+                <span class="card-topic-tag">CloudFormation · Ciclo de Vida</span>
+              </div>
+              <h3>CloudFormation Stack (Pila de Recursos)</h3>
+              <p class="card-def">La unidad viva de despliegue que agrupa todos los recursos físicos creados en AWS a partir de una plantilla. Si la creación de un recurso falla, CloudFormation ejecuta un Rollback automático para evitar estados inconsistentes. Al eliminar el stack, todos sus recursos asociados se destruyen de manera limpia y sincronizada.</p>
+            </div>
+            <div class="card-callouts">
+              <div class="callout-box analogy">
+                <strong class="callout-label">💡 Concepto Intuitivo / Analogía Práctica:</strong>
+                <span>El mueble de oficina completamente ensamblado y en uso. Si decides mudarte o desecharlo, no desarmas tornillo por tornillo: retiras el mueble entero como un solo bloque.</span>
+              </div>
+              <div class="callout-box lab-use">
+                <strong class="callout-label">🛠️ Aplicación Exacta en el Laboratorio:</strong>
+                <span>Monitoreamos el stack hasta alcanzar &#x27;CREATE_COMPLETE&#x27; y luego realizamos el cleanup ejecutando &#x27;Delete stack&#x27;, eliminando la EC2, el SG y la alarma en un solo paso.</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="glossary-card" data-lab="S06" data-level="Fundamento Atómico">
+            <div>
+              <div class="card-header-meta">
+                <span class="lab-badge s06">S06</span>
+                <span style="font-size: 0.68rem; padding: 0.15rem 0.5rem; border-radius: 4px; font-weight: 600; background: rgba(16,185,129,0.15); color: #34d399; border: 1px solid rgba(16,185,129,0.3);">
+                  🔰 Fundamento Atómico
+                </span>
+                <span class="card-topic-tag">Observabilidad · Monitoreo</span>
+              </div>
+              <h3>Amazon CloudWatch</h3>
+              <p class="card-def">El servicio integral de monitoreo, telemetría y observabilidad de AWS. Recolecta datos operacionales en forma de registros (Logs), métricas numéricas con marcas temporales (Metrics) y eventos del sistema, permitiendo visualizar el rendimiento del sistema y activar alarmas automáticas ante anomalías.</p>
+            </div>
+            <div class="card-callouts">
+              <div class="callout-box analogy">
+                <strong class="callout-label">💡 Concepto Intuitivo / Analogía Práctica:</strong>
+                <span>El tablero de instrumentos de un avión o automóvil, que te indica en tiempo real la velocidad, temperatura del motor, presión de aceite y enciende testigos luminosos de aviso.</span>
+              </div>
+              <div class="callout-box lab-use">
+                <strong class="callout-label">🛠️ Aplicación Exacta en el Laboratorio:</strong>
+                <span>CloudWatch monitoreó el consumo de CPU de la instancia virtual y evaluó las condiciones matemáticas de la alarma ante la sobrecarga inducida.</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="glossary-card" data-lab="S06" data-level="Fundamento Atómico">
+            <div>
+              <div class="card-header-meta">
+                <span class="lab-badge s06">S06</span>
+                <span style="font-size: 0.68rem; padding: 0.15rem 0.5rem; border-radius: 4px; font-weight: 600; background: rgba(16,185,129,0.15); color: #34d399; border: 1px solid rgba(16,185,129,0.3);">
+                  🔰 Fundamento Atómico
+                </span>
+                <span class="card-topic-tag">CloudWatch · Telemetría</span>
+              </div>
+              <h3>Métrica en CloudWatch (Metrics &amp; Datapoints)</h3>
+              <p class="card-def">Una variable numérica cuantitativa con marca de tiempo (timestamp) que mide el comportamiento o rendimiento de un recurso en AWS (ejemplo: &#x27;CPUUtilization&#x27;, &#x27;NetworkIn&#x27;, &#x27;DiskReadOps&#x27;). Cada punto de dato (&#x27;datapoint&#x27;) emitido por el hipervisor o servicio contiene un valor numérico, una hora exacta y dimensiones asociadas (como InstanceId).</p>
+            </div>
+            <div class="card-callouts">
+              <div class="callout-box analogy">
+                <strong class="callout-label">💡 Concepto Intuitivo / Analogía Práctica:</strong>
+                <span>La gráfica de signos vitales de un paciente tomada cada 5 minutos en un hospital: 36.5°C a las 10:00, 37.0°C a las 10:05, 38.8°C a las 10:10.</span>
+              </div>
+              <div class="callout-box lab-use">
+                <strong class="callout-label">🛠️ Aplicación Exacta en el Laboratorio:</strong>
+                <span>Visualizamos los datapoints de &#x27;CPUUtilization&#x27; emitidos cada 5 minutos por la EC2, evidenciando el salto abrupto al 100% de uso de CPU originado por el script de UserData.</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="glossary-card" data-lab="S06" data-level="Fundamento Atómico">
+            <div>
+              <div class="card-header-meta">
+                <span class="lab-badge s06">S06</span>
+                <span style="font-size: 0.68rem; padding: 0.15rem 0.5rem; border-radius: 4px; font-weight: 600; background: rgba(16,185,129,0.15); color: #34d399; border: 1px solid rgba(16,185,129,0.3);">
+                  🔰 Fundamento Atómico
+                </span>
+                <span class="card-topic-tag">CloudWatch · Detección</span>
+              </div>
+              <h3>Alarma de CloudWatch</h3>
+              <p class="card-def">Un evaluador automatizado de reglas que vigila una métrica específica a lo largo del tiempo y compara sus valores contra un umbral (Threshold) matemático. Una alarma transiciona entre tres estados: &#x27;OK&#x27; (métrica dentro de límites normales), &#x27;ALARM&#x27; (métrica violando el umbral) e &#x27;INSUFFICIENT_DATA&#x27; (no hay suficientes datapoints para evaluar).</p>
+            </div>
+            <div class="card-callouts">
+              <div class="callout-box analogy">
+                <strong class="callout-label">💡 Concepto Intuitivo / Analogía Práctica:</strong>
+                <span>El sensor de humo del techo. No mide la temperatura ambiental ni cuántas personas hay en el salón: solo evalúa si las partículas de humo superan el umbral seguro y suena la sirena.</span>
+              </div>
+              <div class="callout-box lab-use">
+                <strong class="callout-label">🛠️ Aplicación Exacta en el Laboratorio:</strong>
+                <span>Configuramos &#x27;CpuHighAlarm&#x27; con un umbral &#x27;&gt;= 70%&#x27; sobre el promedio de CPU, observando cómo transitó de INSUFFICIENT_DATA a ALARM tras acumular dos períodos de 5 minutos.</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="glossary-card" data-lab="S06" data-level="Fundamento Atómico">
+            <div>
+              <div class="card-header-meta">
+                <span class="lab-badge s06">S06</span>
+                <span style="font-size: 0.68rem; padding: 0.15rem 0.5rem; border-radius: 4px; font-weight: 600; background: rgba(16,185,129,0.15); color: #34d399; border: 1px solid rgba(16,185,129,0.3);">
+                  🔰 Fundamento Atómico
+                </span>
+                <span class="card-topic-tag">Cómputo · Máquinas Virtuales</span>
+              </div>
+              <h3>Amazon EC2 (Elastic Compute Cloud)</h3>
+              <p class="card-def">El servicio central de infraestructura de cómputo en la nube de AWS que proporciona capacidad de servidor escalable y configurable en forma de máquinas virtuales (instancias) bajo demanda en los centros de datos de AWS.</p>
+            </div>
+            <div class="card-callouts">
+              <div class="callout-box analogy">
+                <strong class="callout-label">💡 Concepto Intuitivo / Analogía Práctica:</strong>
+                <span>Alquilar un servidor físico en un centro de datos por horas o segundos, pudiendo elegir cuántos núcleos de CPU, cuánta memoria RAM y qué sistema operativo utilizar.</span>
+              </div>
+              <div class="callout-box lab-use">
+                <strong class="callout-label">🛠️ Aplicación Exacta en el Laboratorio:</strong>
+                <span>Declaramos la instancia &#x27;OpsInstance&#x27; tipo &#x27;t3.micro&#x27; con Amazon Linux 2023, conectada a la Subnet A de la VPC del baseline sin IP pública.</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="glossary-card" data-lab="S06" data-level="Mecanismo Avanzado">
+            <div>
+              <div class="card-header-meta">
+                <span class="lab-badge s06">S06</span>
+                <span style="font-size: 0.68rem; padding: 0.15rem 0.5rem; border-radius: 4px; font-weight: 600; background: rgba(147,51,234,0.15); color: #c084fc; border: 1px solid rgba(147,51,234,0.3);">
+                  ⚙️ Mecanismo de Lab
+                </span>
+                <span class="card-topic-tag">CloudFormation · Mapeo</span>
               </div>
               <h3>Logical ID vs Physical ID</h3>
-              <p class="card-def">El Logical ID es el identificador simbólico dentro de la plantilla. El Physical ID es el identificador único e inmutable asignado por AWS al crear el recurso en el entorno.</p>
+              <p class="card-def">El &#x27;Logical ID&#x27; es el alias identificador constante definido en la plantilla YAML (ej. OpsInstance, CpuHighAlarm). El &#x27;Physical ID&#x27; es el identificador real y único asignado por AWS al instanciar el recurso en la infraestructura (ej. i-0abcd1234ef567890).</p>
             </div>
             <div class="card-callouts">
               <div class="callout-box analogy">
                 <strong class="callout-label">💡 Concepto Intuitivo / Analogía Práctica:</strong>
-                <span>Logical ID es la etiqueta &#x27;VehículoDeCarga&#x27; en el contrato; Physical ID es la placa de matrícula &#x27;i-09f42b...&#x27; asignada por el registro vehicular.</span>
+                <span>El plano dice &#x27;Dormitorio Principal&#x27; (Logical ID); en la vida real es la habitación con el número de placa 204B en el segundo piso (Physical ID).</span>
               </div>
               <div class="callout-box lab-use">
                 <strong class="callout-label">🛠️ Aplicación Exacta en el Laboratorio:</strong>
-                <span>El recurso lógico &#x27;OpsInstance&#x27; del YAML se materializó en AWS con el Physical ID &#x27;i-0123456789abcdef0&#x27;.</span>
+                <span>En la pestaña Resources de CloudFormation mapeamos &#x27;OpsInstance&#x27; con su &#x27;i-...&#x27; físico real y &#x27;CpuHighAlarm&#x27; con el nombre físico de la alarma.</span>
               </div>
             </div>
           </article>
 
-          <article class="glossary-card" data-lab="S06">
+          <article class="glossary-card" data-lab="S06" data-level="Mecanismo Avanzado">
             <div>
               <div class="card-header-meta">
                 <span class="lab-badge s06">S06</span>
-                <span class="card-topic-tag">Ciclo de Vida IaC</span>
+                <span style="font-size: 0.68rem; padding: 0.15rem 0.5rem; border-radius: 4px; font-weight: 600; background: rgba(147,51,234,0.15); color: #c084fc; border: 1px solid rgba(147,51,234,0.3);">
+                  ⚙️ Mecanismo de Lab
+                </span>
+                <span class="card-topic-tag">CloudFormation · Ciclo de Vida</span>
               </div>
               <h3>Update sin Reemplazo (In-Place)</h3>
-              <p class="card-def">Actualización de un stack donde los cambios se aplican a propiedades no críticas (como Tags o descripciones) sin requerir la destrucción y recreación del recurso.</p>
+              <p class="card-def">Actualización de un stack de CloudFormation donde la modificación de una propiedad no destructiva (como un Tag o metadato) se aplica sobre el recurso existente sin destruirlo ni regenerar su identificador físico (Physical ID).</p>
             </div>
             <div class="card-callouts">
               <div class="callout-box analogy">
                 <strong class="callout-label">💡 Concepto Intuitivo / Analogía Práctica:</strong>
-                <span>Cambiar la etiqueta identificadora en una máquina industrial sin necesidad de desarmarla ni detener la fábrica.</span>
+                <span>Pintar la fachada de tu casa o cambiar el letrero de la puerta: la casa sigue siendo la misma y no tuviste que demolerla ni volver a construirla.</span>
               </div>
               <div class="callout-box lab-use">
                 <strong class="callout-label">🛠️ Aplicación Exacta en el Laboratorio:</strong>
-                <span>Se actualizó el parámetro &#x27;LabRevision&#x27; de v1 a v2, validando que el InstanceId de la instancia EC2 se mantuvo idéntico antes y después de la operación.</span>
+                <span>Cambiamos LabRevision de v1 a v2 en el template; el stack pasó a UPDATE_COMPLETE conservando intacto el mismo &#x27;InstanceId&#x27; de la EC2.</span>
               </div>
             </div>
           </article>
 
-          <article class="glossary-card" data-lab="S06">
+          <article class="glossary-card" data-lab="S06" data-level="Mecanismo Avanzado">
             <div>
               <div class="card-header-meta">
                 <span class="lab-badge s06">S06</span>
-                <span class="card-topic-tag">Métricas CloudWatch</span>
+                <span style="font-size: 0.68rem; padding: 0.15rem 0.5rem; border-radius: 4px; font-weight: 600; background: rgba(147,51,234,0.15); color: #c084fc; border: 1px solid rgba(147,51,234,0.3);">
+                  ⚙️ Mecanismo de Lab
+                </span>
+                <span class="card-topic-tag">CloudWatch · Frecuencia</span>
               </div>
               <h3>Basic Monitoring en Amazon EC2</h3>
-              <p class="card-def">Monitoreo estándar sin costo adicional provisto por el hipervisor de AWS, con granularidad de métricas cada 5 minutos (300 segundos).</p>
+              <p class="card-def">Nivel de monitoreo gratuito por defecto en Amazon EC2 donde el hipervisor emite métricas a CloudWatch en intervalos fijos de 5 minutos (300 segundos). El monitoreo detallado (Detailed Monitoring) cuesta extra y emite cada 1 minuto.</p>
             </div>
             <div class="card-callouts">
               <div class="callout-box analogy">
                 <strong class="callout-label">💡 Concepto Intuitivo / Analogía Práctica:</strong>
-                <span>Un supervisor que realiza un control de temperatura cada 5 minutos exactos en lugar de monitorear segundo a segundo.</span>
+                <span>Un guardia que hace rondas de inspección cada 5 minutos exactos; no puede darte reportes de lo que ocurrió en el minuto intermedio.</span>
               </div>
               <div class="callout-box lab-use">
                 <strong class="callout-label">🛠️ Aplicación Exacta en el Laboratorio:</strong>
-                <span>Dado que cada datapoint toma 5 minutos y la alarma requiere 2 períodos consecutivos, la carga de UserData debió sostenerse durante 15 minutos (900 s).</span>
+                <span>Dado que usamos Basic Monitoring (Period=300 s), el experimento requirió una carga de CPU sostenida de 15 minutos para asegurar dos ventanas completas de evaluación.</span>
               </div>
             </div>
           </article>
 
-          <article class="glossary-card" data-lab="S06">
+          <article class="glossary-card" data-lab="S06" data-level="Mecanismo Avanzado">
             <div>
               <div class="card-header-meta">
                 <span class="lab-badge s06">S06</span>
-                <span class="card-topic-tag">Alarmas CloudWatch</span>
+                <span style="font-size: 0.68rem; padding: 0.15rem 0.5rem; border-radius: 4px; font-weight: 600; background: rgba(147,51,234,0.15); color: #c084fc; border: 1px solid rgba(147,51,234,0.3);">
+                  ⚙️ Mecanismo de Lab
+                </span>
+                <span class="card-topic-tag">CloudWatch · Matemáticas</span>
               </div>
               <h3>Period, EvaluationPeriods y DatapointsToAlarm</h3>
-              <p class="card-def">Period: tamaño de la ventana de agregación (300 s). EvaluationPeriods: cantidad de ventanas recientes analizadas (2). DatapointsToAlarm: cantidad de períodos anómalos requeridos para cambiar a estado ALARM (2).</p>
+              <p class="card-def">&#x27;Period&#x27; es la duración de cada ventana de agregación (ej. 300 s). &#x27;EvaluationPeriods&#x27; es el número de períodos recientes que se inspeccionan. &#x27;DatapointsToAlarm&#x27; es el número de esos períodos que deben haber superado el umbral para disparar la alarma.</p>
             </div>
             <div class="card-callouts">
               <div class="callout-box analogy">
                 <strong class="callout-label">💡 Concepto Intuitivo / Analogía Práctica:</strong>
-                <span>Para emitir una alerta, el sistema exige comprobar que en 2 mediciones consecutivas de 5 minutos el promedio superó el 70%.</span>
+                <span>Para diagnosticar fiebre recurrente, el médico exige que la temperatura supere 38°C en al menos 2 tomas consecutivas de 5 minutos antes de ordenar el ingreso hospitalario.</span>
               </div>
               <div class="callout-box lab-use">
                 <strong class="callout-label">🛠️ Aplicación Exacta en el Laboratorio:</strong>
-                <span>La alarma inició en estado &#x27;INSUFFICIENT_DATA&#x27; hasta completar la recolección de los dos períodos de métricas requeridos.</span>
+                <span>Configuramos Period=300, EvaluationPeriods=2 y DatapointsToAlarm=2: la alarma exigió 10 minutos continuos (dos ventanas de 5 min) por encima del 70% para transicionar a ALARM.</span>
               </div>
             </div>
           </article>
 
-          <article class="glossary-card" data-lab="S06">
+          <article class="glossary-card" data-lab="S06" data-level="Mecanismo Avanzado">
             <div>
               <div class="card-header-meta">
                 <span class="lab-badge s06">S06</span>
-                <span class="card-topic-tag">Automatización de Arranque</span>
+                <span style="font-size: 0.68rem; padding: 0.15rem 0.5rem; border-radius: 4px; font-weight: 600; background: rgba(147,51,234,0.15); color: #c084fc; border: 1px solid rgba(147,51,234,0.3);">
+                  ⚙️ Mecanismo de Lab
+                </span>
+                <span class="card-topic-tag">EC2 · Automatización</span>
               </div>
               <h3>UserData en Amazon EC2</h3>
-              <p class="card-def">Script de shell ejecutado con privilegios de root una única vez durante el primer inicio de la instancia para configuración y arranque autónomo.</p>
+              <p class="card-def">Script de inicialización (típicamente bash en Linux) que se ejecuta una única vez con privilegios de root durante el primer arranque de una instancia EC2 a través de cloud-init.</p>
             </div>
             <div class="card-callouts">
               <div class="callout-box analogy">
                 <strong class="callout-label">💡 Concepto Intuitivo / Analogía Práctica:</strong>
-                <span>La lista de instrucciones preprogramadas que ejecuta un dispositivo al encenderse por primera vez de fábrica.</span>
+                <span>El instructivo de puesta en marcha que un robot ejecuta automáticamente la primera vez que se conecta a la energía eléctrica.</span>
               </div>
               <div class="callout-box lab-use">
                 <strong class="callout-label">🛠️ Aplicación Exacta en el Laboratorio:</strong>
-                <span>Se ejecutaron 2 bucles de saturación de CPU con &#x27;timeout 900 bash -c &quot;while :; do :; done&quot;&#x27; sin requerir conexión SSH ni acceso a Internet.</span>
+                <span>Inyectamos en Base64 un script bash con dos bucles infinitos calculando operaciones durante 900 segundos (timeout 900) para elevar la CPU al 100% de manera autónoma sin requerir paquetes ni red.</span>
               </div>
             </div>
           </article>
 
-          <article class="glossary-card" data-lab="S07">
+          <article class="glossary-card" data-lab="S07" data-level="Fundamento Atómico">
             <div>
               <div class="card-header-meta">
                 <span class="lab-badge s07">S07</span>
-                <span class="card-topic-tag">Modernización</span>
+                <span style="font-size: 0.68rem; padding: 0.15rem 0.5rem; border-radius: 4px; font-weight: 600; background: rgba(16,185,129,0.15); color: #34d399; border: 1px solid rgba(16,185,129,0.3);">
+                  🔰 Fundamento Atómico
+                </span>
+                <span class="card-topic-tag">Serverless · Paradigma</span>
               </div>
-              <h3>Arquitectura Orientada a Eventos (Serverless)</h3>
-              <p class="card-def">Patrón desacoplado donde los componentes reaccionan a cambios de estado emitidos por un productor (S3) mediante la ejecución efímera de funciones (Lambda).</p>
+              <h3>Serverless (Computación sin Servidor)</h3>
+              <p class="card-def">Modelo de ejecución en la nube donde el desarrollador construye y ejecuta aplicaciones sin aprovisionar, administrar, parchar ni escalar servidores. AWS asume toda la gestión de infraestructura física, sistema operativo y capacidad; el cliente paga estrictamente por el tiempo de ejecución consumido (en milisegundos) y $0.00 cuando no hay solicitudes.</p>
             </div>
             <div class="card-callouts">
               <div class="callout-box analogy">
                 <strong class="callout-label">💡 Concepto Intuitivo / Analogía Práctica:</strong>
-                <span>Un timbre que suena solo cuando llega un paquete, en lugar de mantener a una persona esperando 24/7 en la puerta.</span>
+                <span>En vez de comprar o alquilar un automóvil las 24 horas del día (pagando seguro y estacionamiento aunque no lo uses), utilizas un servicio como Uber: pagas únicamente por los minutos exactos del trayecto.</span>
               </div>
               <div class="callout-box lab-use">
                 <strong class="callout-label">🛠️ Aplicación Exacta en el Laboratorio:</strong>
-                <span>La subida de &#x27;incoming/order-001.json&#x27; generó el evento &#x27;ObjectCreated:Put&#x27; que invocó a Lambda durante escasos ~2 milisegundos.</span>
+                <span>Reemplazamos la necesidad de tener una máquina virtual EC2 encendida continuamente esperando pedidos por una función Serverless que solo despierta cuando se sube un archivo a S3.</span>
               </div>
             </div>
           </article>
 
-          <article class="glossary-card" data-lab="S07">
+          <article class="glossary-card" data-lab="S07" data-level="Fundamento Atómico">
             <div>
               <div class="card-header-meta">
                 <span class="lab-badge s07">S07</span>
-                <span class="card-topic-tag">Seguridad en Lambda</span>
+                <span style="font-size: 0.68rem; padding: 0.15rem 0.5rem; border-radius: 4px; font-weight: 600; background: rgba(16,185,129,0.15); color: #34d399; border: 1px solid rgba(16,185,129,0.3);">
+                  🔰 Fundamento Atómico
+                </span>
+                <span class="card-topic-tag">Serverless · Cómputo FaaS</span>
+              </div>
+              <h3>AWS Lambda</h3>
+              <p class="card-def">El servicio de cómputo Serverless &#x27;Function-as-a-Service&#x27; (FaaS) de AWS. Ejecuta código en respuesta a eventos de forma totalmente administrada, escalando automáticamente desde cero hasta miles de ejecuciones concurrentes en milisegundos y con alta disponibilidad Multi-AZ nativa.</p>
+            </div>
+            <div class="card-callouts">
+              <div class="callout-box analogy">
+                <strong class="callout-label">💡 Concepto Intuitivo / Analogía Práctica:</strong>
+                <span>Un interruptor de luz con sensor de movimiento: mientras no haya nadie en el pasillo consume cero energía; en el instante exacto en que alguien cruza la puerta, la luz se enciende al milisegundo.</span>
+              </div>
+              <div class="callout-box lab-use">
+                <strong class="callout-label">🛠️ Aplicación Exacta en el Laboratorio:</strong>
+                <span>Creamos la función Lambda &#x27;dcl-dev-order-event-s07&#x27; con runtime Python 3.14 y arquitectura x86_64 para procesar los eventos de pedidos.</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="glossary-card" data-lab="S07" data-level="Fundamento Atómico">
+            <div>
+              <div class="card-header-meta">
+                <span class="lab-badge s07">S07</span>
+                <span style="font-size: 0.68rem; padding: 0.15rem 0.5rem; border-radius: 4px; font-weight: 600; background: rgba(16,185,129,0.15); color: #34d399; border: 1px solid rgba(16,185,129,0.3);">
+                  🔰 Fundamento Atómico
+                </span>
+                <span class="card-topic-tag">Lambda · Código</span>
+              </div>
+              <h3>Función Lambda y Handler</h3>
+              <p class="card-def">La unidad básica de despliegue en AWS Lambda. El &#x27;Handler&#x27; es el método o función específica dentro del código fuente (por ejemplo: &#x27;def lambda_handler(event, context):&#x27;) que el runtime de AWS invoca como punto de entrada cada vez que la función es disparada por un evento.</p>
+            </div>
+            <div class="card-callouts">
+              <div class="callout-box analogy">
+                <strong class="callout-label">💡 Concepto Intuitivo / Analogía Práctica:</strong>
+                <span>La ventanilla de recepción de una empresa. La oficina tiene muchas dependencias, pero cada vez que llega una carta, el recepcionista (Handler) la recibe y lee quién la manda y qué contiene.</span>
+              </div>
+              <div class="callout-box lab-use">
+                <strong class="callout-label">🛠️ Aplicación Exacta en el Laboratorio:</strong>
+                <span>El handler recibió el objeto JSON inyectado por S3, parseó la metadata del pedido (&#x27;order-001.json&#x27;) y emitió un registro estructurado a CloudWatch Logs.</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="glossary-card" data-lab="S07" data-level="Fundamento Atómico">
+            <div>
+              <div class="card-header-meta">
+                <span class="lab-badge s07">S07</span>
+                <span style="font-size: 0.68rem; padding: 0.15rem 0.5rem; border-radius: 4px; font-weight: 600; background: rgba(16,185,129,0.15); color: #34d399; border: 1px solid rgba(16,185,129,0.3);">
+                  🔰 Fundamento Atómico
+                </span>
+                <span class="card-topic-tag">Event-Driven · Integración</span>
+              </div>
+              <h3>Evento / Trigger en AWS</h3>
+              <p class="card-def">Un mensaje estructurado en formato JSON emitido por un servicio emisor (productor de eventos, como Amazon S3 al crearse un objeto) que dispara automáticamente la invocación de un servicio receptor (consumidor, como AWS Lambda).</p>
+            </div>
+            <div class="card-callouts">
+              <div class="callout-box analogy">
+                <strong class="callout-label">💡 Concepto Intuitivo / Analogía Práctica:</strong>
+                <span>La campana de una puerta o el timbre del horno: cuando el pastel termina de hornearse, suena la campana avisándole al cocinero que debe intervenir.</span>
+              </div>
+              <div class="callout-box lab-use">
+                <strong class="callout-label">🛠️ Aplicación Exacta en el Laboratorio:</strong>
+                <span>Configuramos un trigger de tipo &#x27;All object create events&#x27; (&#x27;s3:ObjectCreated:*&#x27;) en el bucket para notificar automáticamente a la función Lambda.</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="glossary-card" data-lab="S07" data-level="Fundamento Atómico">
+            <div>
+              <div class="card-header-meta">
+                <span class="lab-badge s07">S07</span>
+                <span style="font-size: 0.68rem; padding: 0.15rem 0.5rem; border-radius: 4px; font-weight: 600; background: rgba(16,185,129,0.15); color: #34d399; border: 1px solid rgba(16,185,129,0.3);">
+                  🔰 Fundamento Atómico
+                </span>
+                <span class="card-topic-tag">CloudWatch · Logs</span>
+              </div>
+              <h3>CloudWatch Logs (Log Group y Log Stream)</h3>
+              <p class="card-def">El subsistema de CloudWatch para almacenamiento y consulta de registros de texto. Un &#x27;Log Group&#x27; es el contenedor principal que define la retención temporal (cuántos días se conservan los logs) y permisos; un &#x27;Log Stream&#x27; es una secuencia cronológica individual de eventos de log emitida por una instancia específica de ejecución de Lambda.</p>
+            </div>
+            <div class="card-callouts">
+              <div class="callout-box analogy">
+                <strong class="callout-label">💡 Concepto Intuitivo / Analogía Práctica:</strong>
+                <span>El Log Group es el archivador de oficina etiquetado &#x27;Auditoría de Pedidos&#x27;, y cada Log Stream es una carpeta individual que contiene las hojas escritas durante un turno específico.</span>
+              </div>
+              <div class="callout-box lab-use">
+                <strong class="callout-label">🛠️ Aplicación Exacta en el Laboratorio:</strong>
+                <span>Precreamos el Log Group &#x27;/aws/lambda/dcl-dev-order-event-s07&#x27; con retención estricta de 1 día antes de crear la función, asegurando gobernanza de costos y mínimo privilegio.</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="glossary-card" data-lab="S07" data-level="Mecanismo Avanzado">
+            <div>
+              <div class="card-header-meta">
+                <span class="lab-badge s07">S07</span>
+                <span style="font-size: 0.68rem; padding: 0.15rem 0.5rem; border-radius: 4px; font-weight: 600; background: rgba(147,51,234,0.15); color: #c084fc; border: 1px solid rgba(147,51,234,0.3);">
+                  ⚙️ Mecanismo de Lab
+                </span>
+                <span class="card-topic-tag">Arquitectura · EDA</span>
+              </div>
+              <h3>Arquitectura Orientada a Eventos (Serverless EDA)</h3>
+              <p class="card-def">Patrón de diseño arquitectónico donde los componentes se comunican de manera asíncrona desacoplada mediante la emisión y consumo de eventos, eliminando la necesidad de que los servicios se conozcan directamente o mantengan servidores sondeando activamente (polling).</p>
+            </div>
+            <div class="card-callouts">
+              <div class="callout-box analogy">
+                <strong class="callout-label">💡 Concepto Intuitivo / Analogía Práctica:</strong>
+                <span>Un buzón de correo postal: el cartero deposita la carta y sigue su camino; tú la recoges cuando te convenga sin que el cartero tenga que esperarte en la puerta.</span>
+              </div>
+              <div class="callout-box lab-use">
+                <strong class="callout-label">🛠️ Aplicación Exacta en el Laboratorio:</strong>
+                <span>S3 emitió el evento al recibir &#x27;order-001.json&#x27; y Lambda se activó de forma instantánea sin intermediación de servidores de sondeo.</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="glossary-card" data-lab="S07" data-level="Mecanismo Avanzado">
+            <div>
+              <div class="card-header-meta">
+                <span class="lab-badge s07">S07</span>
+                <span style="font-size: 0.68rem; padding: 0.15rem 0.5rem; border-radius: 4px; font-weight: 600; background: rgba(147,51,234,0.15); color: #c084fc; border: 1px solid rgba(147,51,234,0.3);">
+                  ⚙️ Mecanismo de Lab
+                </span>
+                <span class="card-topic-tag">Seguridad Lambda</span>
               </div>
               <h3>Execution Role vs Resource-based Policy</h3>
-              <p class="card-def">Resource-based Policy: autoriza la invocación entrante (de S3 a Lambda). Execution Role: autoriza las llamadas salientes (de Lambda a CloudWatch Logs).</p>
+              <p class="card-def">El &#x27;Execution Role&#x27; autoriza a la función Lambda a interactuar con otros servicios de AWS (como escribir logs en CloudWatch). La &#x27;Resource-based Policy&#x27; autoriza a un servicio externo (como el bucket de S3) a invocar la función Lambda.</p>
             </div>
             <div class="card-callouts">
               <div class="callout-box analogy">
                 <strong class="callout-label">💡 Concepto Intuitivo / Analogía Práctica:</strong>
-                <span>Resource-based policy es la autorización que permite a la oficina postal tocar a tu puerta; Execution Role es tu credencial para redactar reportes en el archivo central.</span>
+                <span>El Execution Role es la billetera y credenciales que Lambda lleva consigo para trabajar; la Resource-based Policy es la cerradura en la puerta de Lambda que le permite a S3 tocar el timbre.</span>
               </div>
               <div class="callout-box lab-use">
                 <strong class="callout-label">🛠️ Aplicación Exacta en el Laboratorio:</strong>
-                <span>Al configurar el trigger de S3 se generó la Resource-based policy; el Execution Role &#x27;dcl-dev-role-lambda-s07&#x27; se configuró exclusivamente con permisos de escritura de logs.</span>
+                <span>El Execution Role solo concedió logs:CreateLogStream y logs:PutLogEvents (sin permisos a S3). La autorización para que S3 invoque a Lambda se configuró en la Resource-based policy de la función.</span>
               </div>
             </div>
           </article>
 
-          <article class="glossary-card" data-lab="S07">
+          <article class="glossary-card" data-lab="S07" data-level="Mecanismo Avanzado">
             <div>
               <div class="card-header-meta">
                 <span class="lab-badge s07">S07</span>
-                <span class="card-topic-tag">Disparadores de Eventos</span>
+                <span style="font-size: 0.68rem; padding: 0.15rem 0.5rem; border-radius: 4px; font-weight: 600; background: rgba(147,51,234,0.15); color: #c084fc; border: 1px solid rgba(147,51,234,0.3);">
+                  ⚙️ Mecanismo de Lab
+                </span>
+                <span class="card-topic-tag">S3 · Reglas de Eventos</span>
               </div>
               <h3>Filtros de Notificación S3 (Prefix &amp; Suffix)</h3>
-              <p class="card-def">Criterios de coincidencia en el productor de eventos que restringen el disparo de notificaciones según el prefijo (carpeta) y sufijo (extensión) del objeto.</p>
+              <p class="card-def">Reglas de acotamiento aplicadas sobre la configuración de notificaciones del bucket que restringen el disparo de eventos exclusivamente a objetos que comiencen con un prefijo exacto y terminen con una extensión o sufijo determinado.</p>
             </div>
             <div class="card-callouts">
               <div class="callout-box analogy">
                 <strong class="callout-label">💡 Concepto Intuitivo / Analogía Práctica:</strong>
-                <span>Filtrar la bandeja de correspondencia para tramitar únicamente cartas que provengan de la carpeta &#x27;incoming/&#x27; y terminen en formato &#x27;.json&#x27;.</span>
+                <span>Un filtro en tu correo electrónico que solo envía a tu teléfono las alertas de mensajes que provengan de &#x27;pedidos/&#x27; y terminen en &#x27;.pdf&#x27;.</span>
               </div>
               <div class="callout-box lab-use">
                 <strong class="callout-label">🛠️ Aplicación Exacta en el Laboratorio:</strong>
-                <span>Se configuró Prefix=&#x27;incoming/&#x27; y Suffix=&#x27;.json&#x27;, previniendo activamente bucles infinitos de auto-invocación recursiva.</span>
+                <span>Configuramos Prefix=&#x27;incoming/&#x27; y Suffix=&#x27;.json&#x27;, asegurando que subir archivos en la raíz o con extensiones como &#x27;.txt&#x27; no active la función Lambda ni genere costos.</span>
               </div>
             </div>
           </article>
 
-          <article class="glossary-card" data-lab="S07">
+          <article class="glossary-card" data-lab="S07" data-level="Mecanismo Avanzado">
             <div>
               <div class="card-header-meta">
                 <span class="lab-badge s07">S07</span>
-                <span class="card-topic-tag">CloudWatch Logs</span>
-              </div>
-              <h3>Log Group Precreado y Retención</h3>
-              <p class="card-def">Creación anticipada del contenedor de logs en CloudWatch con política de retención explícita (1 día), acotando los permisos requeridos por el rol de Lambda.</p>
-            </div>
-            <div class="card-callouts">
-              <div class="callout-box analogy">
-                <strong class="callout-label">💡 Concepto Intuitivo / Analogía Práctica:</strong>
-                <span>Habilitar un cuaderno de registros con vigencia de un día para que el operador solo tenga permiso de escribir, sin facultades para crear cuadernos arbitrarios.</span>
-              </div>
-              <div class="callout-box lab-use">
-                <strong class="callout-label">🛠️ Aplicación Exacta en el Laboratorio:</strong>
-                <span>Precrear &#x27;/aws/lambda/dcl-dev-order-event-s07&#x27; permitió retirar &#x27;logs:CreateLogGroup&#x27; del rol, dejando únicamente &#x27;CreateLogStream&#x27; y &#x27;PutLogEvents&#x27;.</span>
-              </div>
-            </div>
-          </article>
-
-          <article class="glossary-card" data-lab="S07">
-            <div>
-              <div class="card-header-meta">
-                <span class="lab-badge s07">S07</span>
-                <span class="card-topic-tag">Semántica de Eventos</span>
+                <span style="font-size: 0.68rem; padding: 0.15rem 0.5rem; border-radius: 4px; font-weight: 600; background: rgba(147,51,234,0.15); color: #c084fc; border: 1px solid rgba(147,51,234,0.3);">
+                  ⚙️ Mecanismo de Lab
+                </span>
+                <span class="card-topic-tag">Sistemas Distribuidos</span>
               </div>
               <h3>Garantía de Entrega At-Least-Once</h3>
-              <p class="card-def">Garantía de los sistemas de mensajería distribuida donde AWS asegura que todo evento llegará al menos una vez al consumidor, pudiendo presentar duplicados esporádicos.</p>
+              <p class="card-def">Semántica de entrega de eventos en sistemas distribuidos de AWS donde la plataforma garantiza que cada evento se entregará al menos una vez, existiendo una probabilidad remota de entregas duplicadas. Por ello, las funciones en producción deben diseñarse de forma idempotente.</p>
             </div>
             <div class="card-callouts">
               <div class="callout-box analogy">
                 <strong class="callout-label">💡 Concepto Intuitivo / Analogía Práctica:</strong>
-                <span>Un mensajero que ante la duda de si recibiste el mensaje, te entrega una segunda copia de seguridad.</span>
+                <span>Un mensajero insistente que, ante la mínima duda de si el timbre sonó bien, vuelve a tocar la puerta por si acaso para no dejar el paquete desatendido.</span>
               </div>
               <div class="callout-box lab-use">
                 <strong class="callout-label">🛠️ Aplicación Exacta en el Laboratorio:</strong>
-                <span>La presencia eventual de dos ejecuciones en CloudWatch para un mismo objeto es inherente a la arquitectura distribuida de Amazon S3 y no un error de diseño.</span>
+                <span>El profesor especificó que una invocación duplicada ocasional es normal por diseño en S3 Event Notifications y no representa un fallo en la infraestructura del laboratorio.</span>
               </div>
             </div>
           </article>
 
-          <article class="glossary-card" data-lab="S05">
+          <article class="glossary-card" data-lab="S05" data-level="Mecanismo Avanzado">
             <div>
               <div class="card-header-meta">
                 <span class="lab-badge s05">S05</span>
-                <span class="card-topic-tag">Gobernanza Cloud</span>
+                <span style="font-size: 0.68rem; padding: 0.15rem 0.5rem; border-radius: 4px; font-weight: 600; background: rgba(147,51,234,0.15); color: #c084fc; border: 1px solid rgba(147,51,234,0.3);">
+                  ⚙️ Mecanismo de Lab
+                </span>
+                <span class="card-topic-tag">VPC Baseline</span>
               </div>
               <h3>Baseline S01 (Infraestructura Base Persistente)</h3>
-              <p class="card-def">Topología de red fundacional (&#x27;dcl-dev-vpc&#x27; 10.20.0.0/16 con subredes Multi-AZ) diseñada para ser inmutable y compartida entre laboratorios.</p>
+              <p class="card-def">La infraestructura de red compartida e inmutable creada en la Semana 1 (&#x27;dcl-dev-vpc&#x27; con CIDR 10.20.0.0/16 y dos subnets en distintas AZs). Es el único componente que persiste entre todos los laboratorios y que nunca debe modificarse ni destruirse durante los cleanups.</p>
             </div>
             <div class="card-callouts">
               <div class="callout-box analogy">
                 <strong class="callout-label">💡 Concepto Intuitivo / Analogía Práctica:</strong>
-                <span>El terreno y acometidas principales de una urbanización, sobre los cuales se construyen estructuras modulares transitorias.</span>
+                <span>El terreno y los cimientos de la propiedad. Cada laboratorio levanta una carpa o estructura temporal en el patio, pero al finalizar el evento la carpa se desmonta y los cimientos quedan intactos.</span>
               </div>
               <div class="callout-box lab-use">
                 <strong class="callout-label">🛠️ Aplicación Exacta en el Laboratorio:</strong>
-                <span>En cada sesión se despliegan recursos temporales y se destruyen en el cleanup garantizando que el Baseline S01 permanezca intacto.</span>
+                <span>Tanto en S05, S06 como en S07, la regla cardinal de cleanup exige eliminar todos los recursos temporales creados asegurando que el Baseline S01 quede exactamente en su estado original.</span>
               </div>
             </div>
           </article>
@@ -538,7 +1006,7 @@
             </button>
           </div>
           <span style="font-size: 0.8rem; color: var(--text-muted); font-family: var(--font-mono);">
-            💡 Haz clic en cualquier paso para desplegar comandos, justificación y trampas de examen
+            💡 Cada laboratorio incluye su glosario específico (fundamentos + mecanismos) y el paso a paso oficial completo
           </span>
         </div>
 
@@ -601,84 +1069,182 @@
             </div>
           </div>
 
-          <!-- Glosario Específico de este Laboratorio -->
+          <!-- Glosario Específico de este Laboratorio (Organizado en 2 Niveles: Atómicos y Avanzados) -->
           <details class="lab-glossary-section" open>
             <summary class="lab-glossary-header" style="cursor: pointer; list-style: none;">
-              <div style="display: flex; align-items: center; gap: 0.65rem;">
+              <div style="display: flex; align-items: center; gap: 0.65rem; flex-wrap: wrap;">
                 <span style="font-size: 1.1rem;">📖</span>
                 <h4 style="font-size: 1.05rem; font-weight: 700;">Glosario Técnico de este Laboratorio (S05)</h4>
-                <span class="lab-badge s05">9 Términos Clave</span>
+                <span class="lab-badge s05">15 Conceptos Clave</span>
+                <span style="font-size: 0.75rem; color: var(--text-muted);">(7 Fundamentos Básicos + 8 Mecanismos de Lab)</span>
               </div>
               <div class="step-toggle-icon">▼</div>
             </summary>
             <div class="lab-glossary-body" style="margin-top: 0.75rem;">
-              <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 0.75rem;">
-                Conceptos arquitectónicos evaluados estrictamente en esta práctica. Consulta su significado formal y aplicación directa.
-              </p>
-              <div class="lab-glossary-grid">
-                
-              <div class="lab-glossary-item">
-                <h5>Reachability (Alcance de Red)</h5>
-                <p><strong>Definición:</strong> Capacidad de un paquete IP para viajar desde una interfaz de red (ENI en EC2) hasta el endpoint del servicio AWS a través de la infraestructura de enrutamiento (IGW, tablas de ruta y Security Groups).</p>
-                <p style="margin-top: 0.35rem; color: #fde68a;"><strong>💡 Analogía:</strong> Tener una carretera pavimentada y el portón abierto para llegar hasta la puerta del banco. Que puedas pararte en la puerta no significa que el vigilante te deje abrir la caja fuerte.</p>
+              <div style="margin-bottom: 1rem;">
+                <div style="font-size: 0.85rem; font-weight: 700; color: #34d399; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.4rem;">
+                  <span>🔰 Nivel 1: Conceptos Fundamentales Atómicos (¡Lo que debes saber primero!)</span>
+                </div>
+                <div class="lab-glossary-grid">
+                  
+              <div class="lab-glossary-item" style="border-left: 3px solid #10b981;">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.35rem;">
+                  <h5 style="margin: 0;">IAM Role (Rol de IAM)</h5>
+                  <span style="font-size: 0.65rem; background: rgba(16,185,129,0.2); color: #34d399; padding: 0.1rem 0.4rem; border-radius: 4px; font-weight: 700;">Fundamento Base</span>
+                </div>
+                <p><strong>Definición Formal:</strong> Una identidad de IAM definida en la cuenta de AWS que no posee credenciales fijas permanentes (ni contraseñas ni Access Keys). Está concebida para ser asumida temporalmente por servicios (como Amazon EC2 o AWS Lambda), aplicaciones o identidades externas. Al asumirse mediante AWS Security Token Service (STS), este entrega credenciales temporales que rotan y expiran de forma automática.</p>
+                <p style="margin-top: 0.35rem; color: #fde68a;"><strong>💡 Analogía:</strong> Un carnet o credencial electrónica con chip RFID. No le pertenece a una persona fija; quien lo porte en su turno adquiere los privilegios de esa credencial, y al expirar el turno la tarjeta se desactiva sin dejar llaves maestras físicas tiradas.</p>
+                <p style="margin-top: 0.35rem; color: #bae6fd;"><strong>🛠️ En este Lab:</strong> Creamos &#x27;dcl-dev-role-s05&#x27; con entidad de confianza para EC2. La máquina virtual obtuvo permisos para interactuar con S3 asumiendo este rol de forma transparente, sin necesidad de &#x27;aws configure&#x27; ni llaves guardadas en disco.</p>
+              </div>
+
+              <div class="lab-glossary-item" style="border-left: 3px solid #10b981;">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.35rem;">
+                  <h5 style="margin: 0;">IAM Policy (Política de IAM)</h5>
+                  <span style="font-size: 0.65rem; background: rgba(16,185,129,0.2); color: #34d399; padding: 0.1rem 0.4rem; border-radius: 4px; font-weight: 700;">Fundamento Base</span>
+                </div>
+                <p><strong>Definición Formal:</strong> Un documento formal estructurado en sintaxis JSON que define explícitamente los permisos dentro de AWS. Contiene una o más declaraciones (Statements) con 4 elementos cardinales: Effect (Allow o Deny), Action (la operación API permitida o denegada), Resource (el ARN exacto sobre el cual aplica) y opcionalmente Condition. En AWS rige el principio de Denegación Implícita (Implicit Deny): todo lo que no esté explícitamente permitido está prohibido.</p>
+                <p style="margin-top: 0.35rem; color: #fde68a;"><strong>💡 Analogía:</strong> El contrato o reglamento de acceso de un edificio de alta seguridad. Estipula con precisión: &#x27;Se autoriza (Allow) abrir la puerta (Action) únicamente de la oficina 402 (Resource)&#x27;. Si intentas abrir la 403, el guardia te rechaza.</p>
+                <p style="margin-top: 0.35rem; color: #bae6fd;"><strong>🛠️ En este Lab:</strong> Creamos la Customer Managed Policy &#x27;dcl-dev-policy-s3-read-allowed-s05&#x27; que concedió únicamente &#x27;s3:GetObject&#x27; sobre el recurso &#x27;arn:aws:s3:::bucket/allowed/*&#x27;.</p>
+              </div>
+
+              <div class="lab-glossary-item" style="border-left: 3px solid #10b981;">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.35rem;">
+                  <h5 style="margin: 0;">IAM User vs IAM Role</h5>
+                  <span style="font-size: 0.65rem; background: rgba(16,185,129,0.2); color: #34d399; padding: 0.1rem 0.4rem; border-radius: 4px; font-weight: 700;">Fundamento Base</span>
+                </div>
+                <p><strong>Definición Formal:</strong> Un IAM User es una identidad de larga duración asociada a una persona específica, que utiliza credenciales estáticas permanentes (usuario/contraseña para consola o Access Keys estáticas para CLI). Un IAM Role es una identidad asumible por servicios o aplicaciones que usa credenciales temporales generadas por STS sin almacenar llaves fijas. Las buenas prácticas de AWS prohíben categóricamente usar IAM Users o Access Keys estáticas en cargas de trabajo.</p>
+                <p style="margin-top: 0.35rem; color: #fde68a;"><strong>💡 Analogía:</strong> Un candado con llave de bronce que te llevas a casa (User: si la pierdes, cualquiera entra) frente a una cerradura digital con código que cambia cada hora (Role: si alguien copia el código, en poco tiempo ya no sirve).</p>
+                <p style="margin-top: 0.35rem; color: #bae6fd;"><strong>🛠️ En este Lab:</strong> El paso Preflight 5 del profesor prohíbe taxativamente crear access keys fijas o ejecutar &#x27;aws configure&#x27; en la EC2. La identidad se resolvió 100% mediante el IAM Role.</p>
+              </div>
+
+              <div class="lab-glossary-item" style="border-left: 3px solid #10b981;">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.35rem;">
+                  <h5 style="margin: 0;">ARN (Amazon Resource Name)</h5>
+                  <span style="font-size: 0.65rem; background: rgba(16,185,129,0.2); color: #34d399; padding: 0.1rem 0.4rem; border-radius: 4px; font-weight: 700;">Fundamento Base</span>
+                </div>
+                <p><strong>Definición Formal:</strong> El identificador estándar, unívoco e inequívoco a nivel global para cualquier recurso creado dentro de la nube de AWS. Sigue la estructura jerárquica: &#x27;arn:partition:service:region:account-id:resource-type/resource-id&#x27;. Permite al motor de IAM evaluar con precisión matemática el elemento &#x27;Resource&#x27; de una política.</p>
+                <p style="margin-top: 0.35rem; color: #fde68a;"><strong>💡 Analogía:</strong> La dirección postal estandarizada internacional (País, Código Postal, Ciudad, Calle, Número de Puerta) que garantiza que un paquete llegue a esa oficina exacta en todo el planeta.</p>
+                <p style="margin-top: 0.35rem; color: #bae6fd;"><strong>🛠️ En este Lab:</strong> Definimos el recurso exacto en la política como &#x27;arn:aws:s3:::dcl-s05-teamXX-&lt;account-id&gt;/allowed/*&#x27;, delimitando el alcance únicamente a los objetos bajo ese prefijo.</p>
+              </div>
+
+              <div class="lab-glossary-item" style="border-left: 3px solid #10b981;">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.35rem;">
+                  <h5 style="margin: 0;">Amazon S3 y S3 Bucket</h5>
+                  <span style="font-size: 0.65rem; background: rgba(16,185,129,0.2); color: #34d399; padding: 0.1rem 0.4rem; border-radius: 4px; font-weight: 700;">Fundamento Base</span>
+                </div>
+                <p><strong>Definición Formal:</strong> Amazon Simple Storage Service (S3) es el servicio de almacenamiento de objetos escalable de AWS. Un &#x27;Bucket&#x27; es el contenedor raíz de primer nivel donde se alojan los objetos. Los buckets se crean en una región geográfica específica pero sus nombres deben ser únicos globalmente en toda la infraestructura mundial de AWS. Incluyen control de acceso público (Block Public Access) y cifrado por defecto.</p>
+                <p style="margin-top: 0.35rem; color: #fde68a;"><strong>💡 Analogía:</strong> Un hangar de contenedores marítimos. El bucket es un contenedor cerrado con un código de serie mundial irrepetible dentro del cual guardas cajas de datos.</p>
+                <p style="margin-top: 0.35rem; color: #bae6fd;"><strong>🛠️ En este Lab:</strong> Creamos el bucket privado &#x27;dcl-s05-teamXX-&lt;account-id&gt;&#x27; en &#x27;us-east-1&#x27; con Block Public Access 100% activo y cifrado SSE-S3 por defecto.</p>
+              </div>
+
+              <div class="lab-glossary-item" style="border-left: 3px solid #10b981;">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.35rem;">
+                  <h5 style="margin: 0;">Objeto en S3 (Data, Metadata y Key)</h5>
+                  <span style="font-size: 0.65rem; background: rgba(16,185,129,0.2); color: #34d399; padding: 0.1rem 0.4rem; border-radius: 4px; font-weight: 700;">Fundamento Base</span>
+                </div>
+                <p><strong>Definición Formal:</strong> La entidad fundamental almacenada en S3. A diferencia de un sistema de archivos tradicional (disco duro con carpetas jerárquicas), S3 es un espacio plano de almacenamiento de objetos. Cada objeto consta de sus datos binarios, metadatos y una &#x27;Key&#x27; (clave o identificador alfanumérico completo). Los nombres que parecen directorios (ej. &#x27;allowed/context.txt&#x27;) son solo cadenas de texto donde &#x27;allowed/&#x27; es un prefijo, no una carpeta física.</p>
+                <p style="margin-top: 0.35rem; color: #fde68a;"><strong>💡 Analogía:</strong> Una pared gigante con casilleros etiquetados. No hay una habitación dentro de otra habitación: solo hay casilleros con etiquetas largas escritas en el frente.</p>
+                <p style="margin-top: 0.35rem; color: #bae6fd;"><strong>🛠️ En este Lab:</strong> Cargamos dos objetos independientes en el mismo bucket: &#x27;allowed/context.txt&#x27; y &#x27;restricted/secret.txt&#x27; para aislar y contrastar la variable de autorización en el acceso.</p>
+              </div>
+
+              <div class="lab-glossary-item" style="border-left: 3px solid #10b981;">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.35rem;">
+                  <h5 style="margin: 0;">AWS CloudTrail</h5>
+                  <span style="font-size: 0.65rem; background: rgba(16,185,129,0.2); color: #34d399; padding: 0.1rem 0.4rem; border-radius: 4px; font-weight: 700;">Fundamento Base</span>
+                </div>
+                <p><strong>Definición Formal:</strong> El servicio central de auditoría, gobernanza y registro operacional de AWS. CloudTrail registra de forma inmutable cada llamada a las APIs de AWS realizada en la cuenta (desde la Consola, AWS CLI o SDKs), capturando quién solicitó la acción (Identity/Principal), qué acción solicitó (EventName), cuándo (EventTime), desde qué IP de origen y con qué parámetros.</p>
+                <p style="margin-top: 0.35rem; color: #fde68a;"><strong>💡 Analogía:</strong> La cámara de seguridad de circuito cerrado y el libro de firmas en la recepción de un banco que registra quién entra, qué puerta pide abrir y a qué hora exacta.</p>
+                <p style="margin-top: 0.35rem; color: #bae6fd;"><strong>🛠️ En este Lab:</strong> En el Paso 7 auditamos CloudTrail Event History para localizar el registro exacto del evento de administración &#x27;AttachRolePolicy&#x27; generado al vincular la política al rol.</p>
+              </div>
+                </div>
+              </div>
+
+              <div>
+                <div style="font-size: 0.85rem; font-weight: 700; color: #c084fc; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.4rem;">
+                  <span>⚙️ Nivel 2: Mecanismos y Comportamientos de este Laboratorio</span>
+                </div>
+                <div class="lab-glossary-grid">
+                  
+              <div class="lab-glossary-item" style="border-left: 3px solid #8b5cf6;">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.35rem;">
+                  <h5 style="margin: 0;">Reachability (Alcance de Red)</h5>
+                  <span style="font-size: 0.65rem; background: rgba(139,92,246,0.2); color: #c084fc; padding: 0.1rem 0.4rem; border-radius: 4px; font-weight: 700;">Mecanismo Lab</span>
+                </div>
+                <p><strong>Definición:</strong> Capacidad de un paquete IP para viajar desde una interfaz de red (ENI en EC2) hasta el endpoint del servicio AWS a través de la infraestructura de enrutamiento (Internet Gateway, tablas de ruta y Security Groups).</p>
+                <p style="margin-top: 0.35rem; color: #fde68a;"><strong>💡 Analogía:</strong> Tener una carretera pavimentada y el portón abierto para llegar hasta la puerta del banco. Que puedas pararte en la puerta no significa que el guardia te deje entrar a la bóveda.</p>
                 <p style="margin-top: 0.35rem; color: #bae6fd;"><strong>🛠️ En este Lab:</strong> En el Lab 05 configuramos Internet Gateway y ruta 0.0.0.0/0 en Subnet A para que la EC2 alcance el endpoint público de S3. Si la red falla, la respuesta es &#x27;Could not connect / Timeout&#x27;, jamás &#x27;AccessDenied&#x27;.</p>
               </div>
 
-              <div class="lab-glossary-item">
-                <h5>Authorization (Autorización IAM)</h5>
+              <div class="lab-glossary-item" style="border-left: 3px solid #8b5cf6;">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.35rem;">
+                  <h5 style="margin: 0;">Authorization (Autorización IAM)</h5>
+                  <span style="font-size: 0.65rem; background: rgba(139,92,246,0.2); color: #c084fc; padding: 0.1rem 0.4rem; border-radius: 4px; font-weight: 700;">Mecanismo Lab</span>
+                </div>
                 <p><strong>Definición:</strong> Evaluación formal donde el motor de políticas de AWS determina si la identidad autenticada tiene permiso para ejecutar una acción específica (Action) sobre un recurso determinado (Resource).</p>
-                <p style="margin-top: 0.35rem; color: #fde68a;"><strong>💡 Analogía:</strong> El oficial de seguridad revisando tu identificación contra el libro de registros para decidir si puedes acceder a la bóveda A o a la bóveda B.</p>
+                <p style="margin-top: 0.35rem; color: #fde68a;"><strong>💡 Analogía:</strong> El guardia revisando tu identificación contra el libro de registros para decidir si tu llave autoriza abrir la caja de seguridad A o la B.</p>
                 <p style="margin-top: 0.35rem; color: #bae6fd;"><strong>🛠️ En este Lab:</strong> La misma instancia EC2 con el mismo IAM Role leyó con éxito &#x27;allowed/context.txt&#x27; (PASS) pero recibió &#x27;AccessDenied&#x27; al solicitar &#x27;restricted/secret.txt&#x27;.</p>
               </div>
 
-              <div class="lab-glossary-item">
-                <h5>IAM Role &amp; Credenciales Temporales</h5>
-                <p><strong>Definición:</strong> Identidad de IAM sin credenciales estáticas permanentes, asumida por servicios como EC2 o Lambda mediante AWS Security Token Service (STS) que entrega llaves temporales autogestionadas.</p>
-                <p style="margin-top: 0.35rem; color: #fde68a;"><strong>💡 Analogía:</strong> Un carnet digital con chip de radiofrecuencia que se renueva y expira automáticamente cada pocas horas, eliminando el riesgo de extraviar llaves maestras físicas.</p>
-                <p style="margin-top: 0.35rem; color: #bae6fd;"><strong>🛠️ En este Lab:</strong> Eliminó la necesidad de ejecutar &#x27;aws configure&#x27; o almacenar credenciales fijas (Access Key / Secret Key) dentro de la EC2 o en el código de Lambda.</p>
-              </div>
-
-              <div class="lab-glossary-item">
-                <h5>Instance Profile (Perfil de Instancia)</h5>
-                <p><strong>Definición:</strong> Contenedor que permite asociar un rol de IAM a una instancia EC2 en tiempo de inicialización o en caliente.</p>
-                <p style="margin-top: 0.35rem; color: #fde68a;"><strong>💡 Analogía:</strong> El porta-carnet físico con cordón donde insertas el chip de permisos para que el servidor lo porte consigo.</p>
+              <div class="lab-glossary-item" style="border-left: 3px solid #8b5cf6;">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.35rem;">
+                  <h5 style="margin: 0;">Instance Profile (Perfil de Instancia)</h5>
+                  <span style="font-size: 0.65rem; background: rgba(139,92,246,0.2); color: #c084fc; padding: 0.1rem 0.4rem; border-radius: 4px; font-weight: 700;">Mecanismo Lab</span>
+                </div>
+                <p><strong>Definición:</strong> Contenedor que permite asociar un rol de IAM a una instancia EC2 en tiempo de inicialización o en caliente para que el servicio de metadatos de la instancia (IMDS) entregue las credenciales temporales del rol a las aplicaciones que corren dentro del servidor.</p>
+                <p style="margin-top: 0.35rem; color: #fde68a;"><strong>💡 Analogía:</strong> El porta-carnet físico con cordón donde insertas el chip de permisos para que la máquina virtual lo lleve colgado al cuello.</p>
                 <p style="margin-top: 0.35rem; color: #bae6fd;"><strong>🛠️ En este Lab:</strong> Al crear el rol &#x27;dcl-dev-role-s05&#x27; en la consola para el servicio EC2, AWS generó automáticamente un Instance Profile homónimo para asociarlo a la instancia virtual.</p>
               </div>
 
-              <div class="lab-glossary-item">
-                <h5>IAM Policy: Action vs Resource</h5>
-                <p><strong>Definición:</strong> &#x27;Action&#x27; especifica la operación o verbo API permitido o denegado (ej. s3:GetObject). &#x27;Resource&#x27; restringe el objeto o ARN específico sobre el cual recae dicha operación.</p>
+              <div class="lab-glossary-item" style="border-left: 3px solid #8b5cf6;">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.35rem;">
+                  <h5 style="margin: 0;">IAM Policy: Action vs Resource</h5>
+                  <span style="font-size: 0.65rem; background: rgba(139,92,246,0.2); color: #c084fc; padding: 0.1rem 0.4rem; border-radius: 4px; font-weight: 700;">Mecanismo Lab</span>
+                </div>
+                <p><strong>Definición:</strong> &#x27;Action&#x27; especifica el verbo o método de API permitido o denegado (ej. s3:GetObject). &#x27;Resource&#x27; especifica el objeto o ARN específico sobre el cual recae dicha operación. Cambiar cualquiera de los dos altera el resultado de la autorización.</p>
                 <p style="margin-top: 0.35rem; color: #fde68a;"><strong>💡 Analogía:</strong> &#x27;Action&#x27; es el verbo &#x27;Leer&#x27;, mientras que &#x27;Resource&#x27; es el estante número 1. Si intentas &#x27;Escribir&#x27; o &#x27;Leer el estante 2&#x27;, la petición es rechazada.</p>
                 <p style="margin-top: 0.35rem; color: #bae6fd;"><strong>🛠️ En este Lab:</strong> Con Action: &#x27;s3:GetObject&#x27; y Resource: &#x27;arn:aws:s3:::bucket/allowed/*&#x27;, leer en restricted/ falló por Resource y escribir en allowed/ falló por Action.</p>
               </div>
 
-              <div class="lab-glossary-item">
-                <h5>s3:GetObject vs s3:PutObject</h5>
-                <p><strong>Definición:</strong> &#x27;s3:GetObject&#x27; concede permiso de lectura y descarga de bytes de un objeto existente. &#x27;s3:PutObject&#x27; autoriza la carga, creación o sobrescritura de objetos.</p>
+              <div class="lab-glossary-item" style="border-left: 3px solid #8b5cf6;">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.35rem;">
+                  <h5 style="margin: 0;">s3:GetObject vs s3:PutObject</h5>
+                  <span style="font-size: 0.65rem; background: rgba(139,92,246,0.2); color: #c084fc; padding: 0.1rem 0.4rem; border-radius: 4px; font-weight: 700;">Mecanismo Lab</span>
+                </div>
+                <p><strong>Definición:</strong> &#x27;s3:GetObject&#x27; concede permiso de lectura y descarga de bytes de un objeto existente. &#x27;s3:PutObject&#x27; autoriza la carga, creación o sobrescritura de objetos en S3.</p>
                 <p style="margin-top: 0.35rem; color: #fde68a;"><strong>💡 Analogía:</strong> GetObject es consultar un expediente existente; PutObject es archivar un documento nuevo en el archivador.</p>
                 <p style="margin-top: 0.35rem; color: #bae6fd;"><strong>🛠️ En este Lab:</strong> Se validó que el rol tuviera únicamente s3:GetObject, verificando que los intentos de s3:PutObject fueran rechazados con AccessDenied de manera sistemática.</p>
               </div>
 
-              <div class="lab-glossary-item">
-                <h5>SSE-S3 (Server-Side Encryption)</h5>
-                <p><strong>Definición:</strong> Cifrado del lado del servidor gestionado por Amazon S3 (AES-256). Protege los bloques físicos de datos almacenados en los discos del centro de datos.</p>
-                <p style="margin-top: 0.35rem; color: #fde68a;"><strong>💡 Analogía:</strong> Cerrar los archivadores con llave en la bodega del banco. Protege ante el robo del mueble físico, pero no decide si un empleado tiene autorización para consultar los expedientes.</p>
-                <p style="margin-top: 0.35rem; color: #bae6fd;"><strong>🛠️ En este Lab:</strong> Cifrar el bucket con SSE-S3 demostró que el cifrado en reposo no influye en las decisiones de autorización ni produce errores de AccessDenied para usuarios autorizados.</p>
+              <div class="lab-glossary-item" style="border-left: 3px solid #8b5cf6;">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.35rem;">
+                  <h5 style="margin: 0;">SSE-S3 (Server-Side Encryption)</h5>
+                  <span style="font-size: 0.65rem; background: rgba(139,92,246,0.2); color: #c084fc; padding: 0.1rem 0.4rem; border-radius: 4px; font-weight: 700;">Mecanismo Lab</span>
+                </div>
+                <p><strong>Definición:</strong> Cifrado del lado del servidor gestionado por S3 con llaves administradas por AWS (AES-256). Protege los datos en reposo contra acceso físico no autorizado al soporte de almacenamiento de AWS.</p>
+                <p style="margin-top: 0.35rem; color: #fde68a;"><strong>💡 Analogía:</strong> Guardar un libro dentro de una caja fuerte de acero blindado. La caja protege contra robos físicos, pero quien tenga autorización formal para abrir la caja puede leer el texto sin problemas.</p>
+                <p style="margin-top: 0.35rem; color: #bae6fd;"><strong>🛠️ En este Lab:</strong> Se verificó que el bucket tuviera SSE-S3 activo, demostrando que el cifrado protege los datos pero NO sustituye ni condiciona las decisiones de autorización de IAM.</p>
               </div>
 
-              <div class="lab-glossary-item">
-                <h5>CloudTrail: Management vs Data Events</h5>
-                <p><strong>Definición:</strong> Management Events registran operaciones de plano de control (crear roles, asociar políticas). Data Events registran operaciones de plano de datos (leer/escribir objetos S3, invocar Lambdas).</p>
-                <p style="margin-top: 0.35rem; color: #fde68a;"><strong>💡 Analogía:</strong> Management Events es el libro de actas notarial de contratación del personal. Data Events es la cámara que graba cada vez que alguien saca una hoja del cajón.</p>
-                <p style="margin-top: 0.35rem; color: #bae6fd;"><strong>🛠️ En este Lab:</strong> En el Event History de CloudTrail se auditó &#x27;AttachRolePolicy&#x27; (Management Event). No se visualizan &#x27;GetObject&#x27; ni &#x27;PutObject&#x27; porque corresponden a Data Events que requieren trails dedicados.</p>
+              <div class="lab-glossary-item" style="border-left: 3px solid #8b5cf6;">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.35rem;">
+                  <h5 style="margin: 0;">CloudTrail: Management vs Data Events</h5>
+                  <span style="font-size: 0.65rem; background: rgba(139,92,246,0.2); color: #c084fc; padding: 0.1rem 0.4rem; border-radius: 4px; font-weight: 700;">Mecanismo Lab</span>
+                </div>
+                <p><strong>Definición:</strong> Management Events registran operaciones del plano de control (crear recursos, modificar roles, asociar políticas como AttachRolePolicy) y se guardan gratis por 90 días en Event History. Data Events registran operaciones de datos de alto volumen (GetObject, PutObject en S3) y requieren un Trail dedicado de pago.</p>
+                <p style="margin-top: 0.35rem; color: #fde68a;"><strong>💡 Analogía:</strong> Management Events registra cuando se crea o modifica una cuenta bancaria; Data Events registra cada depósito o retiro individual de 5 centavos.</p>
+                <p style="margin-top: 0.35rem; color: #bae6fd;"><strong>🛠️ En este Lab:</strong> Auditamos &#x27;AttachRolePolicy&#x27; en Event History; el profesor enfatizó que GetObject y PutObject no aparecen allí por ser Data Events.</p>
               </div>
 
-              <div class="lab-glossary-item">
-                <h5>Baseline S01 (Infraestructura Base Persistente)</h5>
-                <p><strong>Definición:</strong> Topología de red fundacional (&#x27;dcl-dev-vpc&#x27; 10.20.0.0/16 con subredes Multi-AZ) diseñada para ser inmutable y compartida entre laboratorios.</p>
-                <p style="margin-top: 0.35rem; color: #fde68a;"><strong>💡 Analogía:</strong> El terreno y acometidas principales de una urbanización, sobre los cuales se construyen estructuras modulares transitorias.</p>
-                <p style="margin-top: 0.35rem; color: #bae6fd;"><strong>🛠️ En este Lab:</strong> En cada sesión se despliegan recursos temporales y se destruyen en el cleanup garantizando que el Baseline S01 permanezca intacto.</p>
+              <div class="lab-glossary-item" style="border-left: 3px solid #8b5cf6;">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.35rem;">
+                  <h5 style="margin: 0;">Baseline S01 (Infraestructura Base Persistente)</h5>
+                  <span style="font-size: 0.65rem; background: rgba(139,92,246,0.2); color: #c084fc; padding: 0.1rem 0.4rem; border-radius: 4px; font-weight: 700;">Mecanismo Lab</span>
+                </div>
+                <p><strong>Definición:</strong> La infraestructura de red compartida e inmutable creada en la Semana 1 (&#x27;dcl-dev-vpc&#x27; con CIDR 10.20.0.0/16 y dos subnets en distintas AZs). Es el único componente que persiste entre todos los laboratorios y que nunca debe modificarse ni destruirse durante los cleanups.</p>
+                <p style="margin-top: 0.35rem; color: #fde68a;"><strong>💡 Analogía:</strong> El terreno y los cimientos de la propiedad. Cada laboratorio levanta una carpa o estructura temporal en el patio, pero al finalizar el evento la carpa se desmonta y los cimientos quedan intactos.</p>
+                <p style="margin-top: 0.35rem; color: #bae6fd;"><strong>🛠️ En este Lab:</strong> Tanto en S05, S06 como en S07, la regla cardinal de cleanup exige eliminar todos los recursos temporales creados asegurando que el Baseline S01 quede exactamente en su estado original.</p>
               </div>
+                </div>
               </div>
             </div>
           </details>
@@ -1578,63 +2144,162 @@ aws iam delete-role --role-name dcl-dev-role-s05</code></pre>
             </div>
           </div>
 
-          <!-- Glosario Específico de este Laboratorio -->
+          <!-- Glosario Específico de este Laboratorio (Organizado en 2 Niveles: Atómicos y Avanzados) -->
           <details class="lab-glossary-section" open>
             <summary class="lab-glossary-header" style="cursor: pointer; list-style: none;">
-              <div style="display: flex; align-items: center; gap: 0.65rem;">
+              <div style="display: flex; align-items: center; gap: 0.65rem; flex-wrap: wrap;">
                 <span style="font-size: 1.1rem;">📖</span>
                 <h4 style="font-size: 1.05rem; font-weight: 700;">Glosario Técnico de este Laboratorio (S06)</h4>
-                <span class="lab-badge s06">6 Términos Clave</span>
+                <span class="lab-badge s06">13 Conceptos Clave</span>
+                <span style="font-size: 0.75rem; color: var(--text-muted);">(8 Fundamentos Básicos + 5 Mecanismos de Lab)</span>
               </div>
               <div class="step-toggle-icon">▼</div>
             </summary>
             <div class="lab-glossary-body" style="margin-top: 0.75rem;">
-              <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 0.75rem;">
-                Conceptos arquitectónicos evaluados estrictamente en esta práctica. Consulta su significado formal y aplicación directa.
-              </p>
-              <div class="lab-glossary-grid">
-                
-              <div class="lab-glossary-item">
-                <h5>CloudFormation: Template vs Stack</h5>
-                <p><strong>Definición:</strong> El Template es la declaración declarativa en YAML/JSON del estado deseado. El Stack es la colección unificada de recursos aprovisionados y gestionados colectivamente.</p>
-                <p style="margin-top: 0.35rem; color: #fde68a;"><strong>💡 Analogía:</strong> El Template es el plano arquitectónico en papel; el Stack es la edificación real construida y lista para operar.</p>
-                <p style="margin-top: 0.35rem; color: #bae6fd;"><strong>🛠️ En este Lab:</strong> El archivo fuente fue &#x27;s06-ops-cloudformation.yaml&#x27; y la unidad aprovisionada en la cuenta fue el stack &#x27;dcl-dev-stack-ops-s06&#x27;.</p>
+              <div style="margin-bottom: 1rem;">
+                <div style="font-size: 0.85rem; font-weight: 700; color: #34d399; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.4rem;">
+                  <span>🔰 Nivel 1: Conceptos Fundamentales Atómicos (¡Lo que debes saber primero!)</span>
+                </div>
+                <div class="lab-glossary-grid">
+                  
+              <div class="lab-glossary-item" style="border-left: 3px solid #10b981;">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.35rem;">
+                  <h5 style="margin: 0;">Infraestructura como Código (IaC)</h5>
+                  <span style="font-size: 0.65rem; background: rgba(16,185,129,0.2); color: #34d399; padding: 0.1rem 0.4rem; border-radius: 4px; font-weight: 700;">Fundamento Base</span>
+                </div>
+                <p><strong>Definición Formal:</strong> La práctica de ingeniería de definir, aprovisionar y gestionar infraestructura computacional (servidores, redes, cortafuegos, almacenamiento) mediante especificaciones declarativas y archivos de código legibles por humanos y máquinas, en lugar de configuraciones manuales interactivas en consolas web.</p>
+                <p style="margin-top: 0.35rem; color: #fde68a;"><strong>💡 Analogía:</strong> En lugar de construir un edificio poniendo ladrillos a pulso y de memoria cada vez, tienes el plano arquitectónico computarizado en AutoCAD que una impresora 3D puede replicar exactamente mil veces de forma idéntica.</p>
+                <p style="margin-top: 0.35rem; color: #bae6fd;"><strong>🛠️ En este Lab:</strong> En S06 no se hizo clic manual en consolas para crear la EC2 o la alarma: se codificó la infraestructura completa en el archivo declarativo &#x27;s06-ops-cloudformation.yaml&#x27;.</p>
               </div>
 
-              <div class="lab-glossary-item">
-                <h5>Logical ID vs Physical ID</h5>
-                <p><strong>Definición:</strong> El Logical ID es el identificador simbólico dentro de la plantilla. El Physical ID es el identificador único e inmutable asignado por AWS al crear el recurso en el entorno.</p>
-                <p style="margin-top: 0.35rem; color: #fde68a;"><strong>💡 Analogía:</strong> Logical ID es la etiqueta &#x27;VehículoDeCarga&#x27; en el contrato; Physical ID es la placa de matrícula &#x27;i-09f42b...&#x27; asignada por el registro vehicular.</p>
-                <p style="margin-top: 0.35rem; color: #bae6fd;"><strong>🛠️ En este Lab:</strong> El recurso lógico &#x27;OpsInstance&#x27; del YAML se materializó en AWS con el Physical ID &#x27;i-0123456789abcdef0&#x27;.</p>
+              <div class="lab-glossary-item" style="border-left: 3px solid #10b981;">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.35rem;">
+                  <h5 style="margin: 0;">AWS CloudFormation</h5>
+                  <span style="font-size: 0.65rem; background: rgba(16,185,129,0.2); color: #34d399; padding: 0.1rem 0.4rem; border-radius: 4px; font-weight: 700;">Fundamento Base</span>
+                </div>
+                <p><strong>Definición Formal:</strong> El servicio nativo de AWS para implementar Infraestructura como Código. CloudFormation procesa plantillas declarativas en YAML o JSON, calcula automáticamente el orden y grafo de dependencias de los componentes, y aprovisiona o actualiza los recursos de forma atómica y coordinada.</p>
+                <p style="margin-top: 0.35rem; color: #fde68a;"><strong>💡 Analogía:</strong> El maestro de obra general que recibe los planos de la casa y coordina a los electricistas, plomeros y albañiles para entregar la obra terminada sin que tú tengas que coordinar obrero por obrero.</p>
+                <p style="margin-top: 0.35rem; color: #bae6fd;"><strong>🛠️ En este Lab:</strong> Usamos CloudFormation para crear el stack &#x27;dcl-dev-stack-ops-s06&#x27;, aplicar una actualización in-place de v1 a v2, y finalmente destruir todo el entorno con un único comando declarativo.</p>
               </div>
 
-              <div class="lab-glossary-item">
-                <h5>Update sin Reemplazo (In-Place)</h5>
-                <p><strong>Definición:</strong> Actualización de un stack donde los cambios se aplican a propiedades no críticas (como Tags o descripciones) sin requerir la destrucción y recreación del recurso.</p>
-                <p style="margin-top: 0.35rem; color: #fde68a;"><strong>💡 Analogía:</strong> Cambiar la etiqueta identificadora en una máquina industrial sin necesidad de desarmarla ni detener la fábrica.</p>
-                <p style="margin-top: 0.35rem; color: #bae6fd;"><strong>🛠️ En este Lab:</strong> Se actualizó el parámetro &#x27;LabRevision&#x27; de v1 a v2, validando que el InstanceId de la instancia EC2 se mantuvo idéntico antes y después de la operación.</p>
+              <div class="lab-glossary-item" style="border-left: 3px solid #10b981;">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.35rem;">
+                  <h5 style="margin: 0;">CloudFormation Template (Plantilla)</h5>
+                  <span style="font-size: 0.65rem; background: rgba(16,185,129,0.2); color: #34d399; padding: 0.1rem 0.4rem; border-radius: 4px; font-weight: 700;">Fundamento Base</span>
+                </div>
+                <p><strong>Definición Formal:</strong> El archivo de texto estructurado (en YAML o JSON) que describe el estado deseado de los recursos en AWS. Contiene secciones formales como &#x27;Parameters&#x27; (valores que ingresa el usuario al desplegar), &#x27;Resources&#x27; (los componentes de AWS que se deben crear con sus propiedades) y &#x27;Outputs&#x27; (valores exportados tras el despliegue exitoso).</p>
+                <p style="margin-top: 0.35rem; color: #fde68a;"><strong>💡 Analogía:</strong> La receta escrita de un plato gastronómico o las instrucciones de armado de IKEA: describe los ingredientes necesarios y cómo deben ensamblarse las piezas.</p>
+                <p style="margin-top: 0.35rem; color: #bae6fd;"><strong>🛠️ En este Lab:</strong> Validamos la sintaxis del template con &#x27;aws cloudformation validate-template&#x27; antes de desplegarlo, confirmando que la plantilla no tenía errores gramaticales.</p>
               </div>
 
-              <div class="lab-glossary-item">
-                <h5>Basic Monitoring en Amazon EC2</h5>
-                <p><strong>Definición:</strong> Monitoreo estándar sin costo adicional provisto por el hipervisor de AWS, con granularidad de métricas cada 5 minutos (300 segundos).</p>
-                <p style="margin-top: 0.35rem; color: #fde68a;"><strong>💡 Analogía:</strong> Un supervisor que realiza un control de temperatura cada 5 minutos exactos en lugar de monitorear segundo a segundo.</p>
-                <p style="margin-top: 0.35rem; color: #bae6fd;"><strong>🛠️ En este Lab:</strong> Dado que cada datapoint toma 5 minutos y la alarma requiere 2 períodos consecutivos, la carga de UserData debió sostenerse durante 15 minutos (900 s).</p>
+              <div class="lab-glossary-item" style="border-left: 3px solid #10b981;">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.35rem;">
+                  <h5 style="margin: 0;">CloudFormation Stack (Pila de Recursos)</h5>
+                  <span style="font-size: 0.65rem; background: rgba(16,185,129,0.2); color: #34d399; padding: 0.1rem 0.4rem; border-radius: 4px; font-weight: 700;">Fundamento Base</span>
+                </div>
+                <p><strong>Definición Formal:</strong> La unidad viva de despliegue que agrupa todos los recursos físicos creados en AWS a partir de una plantilla. Si la creación de un recurso falla, CloudFormation ejecuta un Rollback automático para evitar estados inconsistentes. Al eliminar el stack, todos sus recursos asociados se destruyen de manera limpia y sincronizada.</p>
+                <p style="margin-top: 0.35rem; color: #fde68a;"><strong>💡 Analogía:</strong> El mueble de oficina completamente ensamblado y en uso. Si decides mudarte o desecharlo, no desarmas tornillo por tornillo: retiras el mueble entero como un solo bloque.</p>
+                <p style="margin-top: 0.35rem; color: #bae6fd;"><strong>🛠️ En este Lab:</strong> Monitoreamos el stack hasta alcanzar &#x27;CREATE_COMPLETE&#x27; y luego realizamos el cleanup ejecutando &#x27;Delete stack&#x27;, eliminando la EC2, el SG y la alarma en un solo paso.</p>
               </div>
 
-              <div class="lab-glossary-item">
-                <h5>Period, EvaluationPeriods y DatapointsToAlarm</h5>
-                <p><strong>Definición:</strong> Period: tamaño de la ventana de agregación (300 s). EvaluationPeriods: cantidad de ventanas recientes analizadas (2). DatapointsToAlarm: cantidad de períodos anómalos requeridos para cambiar a estado ALARM (2).</p>
-                <p style="margin-top: 0.35rem; color: #fde68a;"><strong>💡 Analogía:</strong> Para emitir una alerta, el sistema exige comprobar que en 2 mediciones consecutivas de 5 minutos el promedio superó el 70%.</p>
-                <p style="margin-top: 0.35rem; color: #bae6fd;"><strong>🛠️ En este Lab:</strong> La alarma inició en estado &#x27;INSUFFICIENT_DATA&#x27; hasta completar la recolección de los dos períodos de métricas requeridos.</p>
+              <div class="lab-glossary-item" style="border-left: 3px solid #10b981;">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.35rem;">
+                  <h5 style="margin: 0;">Amazon CloudWatch</h5>
+                  <span style="font-size: 0.65rem; background: rgba(16,185,129,0.2); color: #34d399; padding: 0.1rem 0.4rem; border-radius: 4px; font-weight: 700;">Fundamento Base</span>
+                </div>
+                <p><strong>Definición Formal:</strong> El servicio integral de monitoreo, telemetría y observabilidad de AWS. Recolecta datos operacionales en forma de registros (Logs), métricas numéricas con marcas temporales (Metrics) y eventos del sistema, permitiendo visualizar el rendimiento del sistema y activar alarmas automáticas ante anomalías.</p>
+                <p style="margin-top: 0.35rem; color: #fde68a;"><strong>💡 Analogía:</strong> El tablero de instrumentos de un avión o automóvil, que te indica en tiempo real la velocidad, temperatura del motor, presión de aceite y enciende testigos luminosos de aviso.</p>
+                <p style="margin-top: 0.35rem; color: #bae6fd;"><strong>🛠️ En este Lab:</strong> CloudWatch monitoreó el consumo de CPU de la instancia virtual y evaluó las condiciones matemáticas de la alarma ante la sobrecarga inducida.</p>
               </div>
 
-              <div class="lab-glossary-item">
-                <h5>UserData en Amazon EC2</h5>
-                <p><strong>Definición:</strong> Script de shell ejecutado con privilegios de root una única vez durante el primer inicio de la instancia para configuración y arranque autónomo.</p>
-                <p style="margin-top: 0.35rem; color: #fde68a;"><strong>💡 Analogía:</strong> La lista de instrucciones preprogramadas que ejecuta un dispositivo al encenderse por primera vez de fábrica.</p>
-                <p style="margin-top: 0.35rem; color: #bae6fd;"><strong>🛠️ En este Lab:</strong> Se ejecutaron 2 bucles de saturación de CPU con &#x27;timeout 900 bash -c &quot;while :; do :; done&quot;&#x27; sin requerir conexión SSH ni acceso a Internet.</p>
+              <div class="lab-glossary-item" style="border-left: 3px solid #10b981;">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.35rem;">
+                  <h5 style="margin: 0;">Métrica en CloudWatch (Metrics &amp; Datapoints)</h5>
+                  <span style="font-size: 0.65rem; background: rgba(16,185,129,0.2); color: #34d399; padding: 0.1rem 0.4rem; border-radius: 4px; font-weight: 700;">Fundamento Base</span>
+                </div>
+                <p><strong>Definición Formal:</strong> Una variable numérica cuantitativa con marca de tiempo (timestamp) que mide el comportamiento o rendimiento de un recurso en AWS (ejemplo: &#x27;CPUUtilization&#x27;, &#x27;NetworkIn&#x27;, &#x27;DiskReadOps&#x27;). Cada punto de dato (&#x27;datapoint&#x27;) emitido por el hipervisor o servicio contiene un valor numérico, una hora exacta y dimensiones asociadas (como InstanceId).</p>
+                <p style="margin-top: 0.35rem; color: #fde68a;"><strong>💡 Analogía:</strong> La gráfica de signos vitales de un paciente tomada cada 5 minutos en un hospital: 36.5°C a las 10:00, 37.0°C a las 10:05, 38.8°C a las 10:10.</p>
+                <p style="margin-top: 0.35rem; color: #bae6fd;"><strong>🛠️ En este Lab:</strong> Visualizamos los datapoints de &#x27;CPUUtilization&#x27; emitidos cada 5 minutos por la EC2, evidenciando el salto abrupto al 100% de uso de CPU originado por el script de UserData.</p>
               </div>
+
+              <div class="lab-glossary-item" style="border-left: 3px solid #10b981;">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.35rem;">
+                  <h5 style="margin: 0;">Alarma de CloudWatch</h5>
+                  <span style="font-size: 0.65rem; background: rgba(16,185,129,0.2); color: #34d399; padding: 0.1rem 0.4rem; border-radius: 4px; font-weight: 700;">Fundamento Base</span>
+                </div>
+                <p><strong>Definición Formal:</strong> Un evaluador automatizado de reglas que vigila una métrica específica a lo largo del tiempo y compara sus valores contra un umbral (Threshold) matemático. Una alarma transiciona entre tres estados: &#x27;OK&#x27; (métrica dentro de límites normales), &#x27;ALARM&#x27; (métrica violando el umbral) e &#x27;INSUFFICIENT_DATA&#x27; (no hay suficientes datapoints para evaluar).</p>
+                <p style="margin-top: 0.35rem; color: #fde68a;"><strong>💡 Analogía:</strong> El sensor de humo del techo. No mide la temperatura ambiental ni cuántas personas hay en el salón: solo evalúa si las partículas de humo superan el umbral seguro y suena la sirena.</p>
+                <p style="margin-top: 0.35rem; color: #bae6fd;"><strong>🛠️ En este Lab:</strong> Configuramos &#x27;CpuHighAlarm&#x27; con un umbral &#x27;&gt;= 70%&#x27; sobre el promedio de CPU, observando cómo transitó de INSUFFICIENT_DATA a ALARM tras acumular dos períodos de 5 minutos.</p>
+              </div>
+
+              <div class="lab-glossary-item" style="border-left: 3px solid #10b981;">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.35rem;">
+                  <h5 style="margin: 0;">Amazon EC2 (Elastic Compute Cloud)</h5>
+                  <span style="font-size: 0.65rem; background: rgba(16,185,129,0.2); color: #34d399; padding: 0.1rem 0.4rem; border-radius: 4px; font-weight: 700;">Fundamento Base</span>
+                </div>
+                <p><strong>Definición Formal:</strong> El servicio central de infraestructura de cómputo en la nube de AWS que proporciona capacidad de servidor escalable y configurable en forma de máquinas virtuales (instancias) bajo demanda en los centros de datos de AWS.</p>
+                <p style="margin-top: 0.35rem; color: #fde68a;"><strong>💡 Analogía:</strong> Alquilar un servidor físico en un centro de datos por horas o segundos, pudiendo elegir cuántos núcleos de CPU, cuánta memoria RAM y qué sistema operativo utilizar.</p>
+                <p style="margin-top: 0.35rem; color: #bae6fd;"><strong>🛠️ En este Lab:</strong> Declaramos la instancia &#x27;OpsInstance&#x27; tipo &#x27;t3.micro&#x27; con Amazon Linux 2023, conectada a la Subnet A de la VPC del baseline sin IP pública.</p>
+              </div>
+                </div>
+              </div>
+
+              <div>
+                <div style="font-size: 0.85rem; font-weight: 700; color: #c084fc; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.4rem;">
+                  <span>⚙️ Nivel 2: Mecanismos y Comportamientos de este Laboratorio</span>
+                </div>
+                <div class="lab-glossary-grid">
+                  
+              <div class="lab-glossary-item" style="border-left: 3px solid #8b5cf6;">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.35rem;">
+                  <h5 style="margin: 0;">Logical ID vs Physical ID</h5>
+                  <span style="font-size: 0.65rem; background: rgba(139,92,246,0.2); color: #c084fc; padding: 0.1rem 0.4rem; border-radius: 4px; font-weight: 700;">Mecanismo Lab</span>
+                </div>
+                <p><strong>Definición:</strong> El &#x27;Logical ID&#x27; es el alias identificador constante definido en la plantilla YAML (ej. OpsInstance, CpuHighAlarm). El &#x27;Physical ID&#x27; es el identificador real y único asignado por AWS al instanciar el recurso en la infraestructura (ej. i-0abcd1234ef567890).</p>
+                <p style="margin-top: 0.35rem; color: #fde68a;"><strong>💡 Analogía:</strong> El plano dice &#x27;Dormitorio Principal&#x27; (Logical ID); en la vida real es la habitación con el número de placa 204B en el segundo piso (Physical ID).</p>
+                <p style="margin-top: 0.35rem; color: #bae6fd;"><strong>🛠️ En este Lab:</strong> En la pestaña Resources de CloudFormation mapeamos &#x27;OpsInstance&#x27; con su &#x27;i-...&#x27; físico real y &#x27;CpuHighAlarm&#x27; con el nombre físico de la alarma.</p>
+              </div>
+
+              <div class="lab-glossary-item" style="border-left: 3px solid #8b5cf6;">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.35rem;">
+                  <h5 style="margin: 0;">Update sin Reemplazo (In-Place)</h5>
+                  <span style="font-size: 0.65rem; background: rgba(139,92,246,0.2); color: #c084fc; padding: 0.1rem 0.4rem; border-radius: 4px; font-weight: 700;">Mecanismo Lab</span>
+                </div>
+                <p><strong>Definición:</strong> Actualización de un stack de CloudFormation donde la modificación de una propiedad no destructiva (como un Tag o metadato) se aplica sobre el recurso existente sin destruirlo ni regenerar su identificador físico (Physical ID).</p>
+                <p style="margin-top: 0.35rem; color: #fde68a;"><strong>💡 Analogía:</strong> Pintar la fachada de tu casa o cambiar el letrero de la puerta: la casa sigue siendo la misma y no tuviste que demolerla ni volver a construirla.</p>
+                <p style="margin-top: 0.35rem; color: #bae6fd;"><strong>🛠️ En este Lab:</strong> Cambiamos LabRevision de v1 a v2 en el template; el stack pasó a UPDATE_COMPLETE conservando intacto el mismo &#x27;InstanceId&#x27; de la EC2.</p>
+              </div>
+
+              <div class="lab-glossary-item" style="border-left: 3px solid #8b5cf6;">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.35rem;">
+                  <h5 style="margin: 0;">Basic Monitoring en Amazon EC2</h5>
+                  <span style="font-size: 0.65rem; background: rgba(139,92,246,0.2); color: #c084fc; padding: 0.1rem 0.4rem; border-radius: 4px; font-weight: 700;">Mecanismo Lab</span>
+                </div>
+                <p><strong>Definición:</strong> Nivel de monitoreo gratuito por defecto en Amazon EC2 donde el hipervisor emite métricas a CloudWatch en intervalos fijos de 5 minutos (300 segundos). El monitoreo detallado (Detailed Monitoring) cuesta extra y emite cada 1 minuto.</p>
+                <p style="margin-top: 0.35rem; color: #fde68a;"><strong>💡 Analogía:</strong> Un guardia que hace rondas de inspección cada 5 minutos exactos; no puede darte reportes de lo que ocurrió en el minuto intermedio.</p>
+                <p style="margin-top: 0.35rem; color: #bae6fd;"><strong>🛠️ En este Lab:</strong> Dado que usamos Basic Monitoring (Period=300 s), el experimento requirió una carga de CPU sostenida de 15 minutos para asegurar dos ventanas completas de evaluación.</p>
+              </div>
+
+              <div class="lab-glossary-item" style="border-left: 3px solid #8b5cf6;">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.35rem;">
+                  <h5 style="margin: 0;">Period, EvaluationPeriods y DatapointsToAlarm</h5>
+                  <span style="font-size: 0.65rem; background: rgba(139,92,246,0.2); color: #c084fc; padding: 0.1rem 0.4rem; border-radius: 4px; font-weight: 700;">Mecanismo Lab</span>
+                </div>
+                <p><strong>Definición:</strong> &#x27;Period&#x27; es la duración de cada ventana de agregación (ej. 300 s). &#x27;EvaluationPeriods&#x27; es el número de períodos recientes que se inspeccionan. &#x27;DatapointsToAlarm&#x27; es el número de esos períodos que deben haber superado el umbral para disparar la alarma.</p>
+                <p style="margin-top: 0.35rem; color: #fde68a;"><strong>💡 Analogía:</strong> Para diagnosticar fiebre recurrente, el médico exige que la temperatura supere 38°C en al menos 2 tomas consecutivas de 5 minutos antes de ordenar el ingreso hospitalario.</p>
+                <p style="margin-top: 0.35rem; color: #bae6fd;"><strong>🛠️ En este Lab:</strong> Configuramos Period=300, EvaluationPeriods=2 y DatapointsToAlarm=2: la alarma exigió 10 minutos continuos (dos ventanas de 5 min) por encima del 70% para transicionar a ALARM.</p>
+              </div>
+
+              <div class="lab-glossary-item" style="border-left: 3px solid #8b5cf6;">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.35rem;">
+                  <h5 style="margin: 0;">UserData en Amazon EC2</h5>
+                  <span style="font-size: 0.65rem; background: rgba(139,92,246,0.2); color: #c084fc; padding: 0.1rem 0.4rem; border-radius: 4px; font-weight: 700;">Mecanismo Lab</span>
+                </div>
+                <p><strong>Definición:</strong> Script de inicialización (típicamente bash en Linux) que se ejecuta una única vez con privilegios de root durante el primer arranque de una instancia EC2 a través de cloud-init.</p>
+                <p style="margin-top: 0.35rem; color: #fde68a;"><strong>💡 Analogía:</strong> El instructivo de puesta en marcha que un robot ejecuta automáticamente la primera vez que se conecta a la energía eléctrica.</p>
+                <p style="margin-top: 0.35rem; color: #bae6fd;"><strong>🛠️ En este Lab:</strong> Inyectamos en Base64 un script bash con dos bucles infinitos calculando operaciones durante 900 segundos (timeout 900) para elevar la CPU al 100% de manera autónoma sin requerir paquetes ni red.</p>
+              </div>
+                </div>
               </div>
             </div>
           </details>
@@ -2426,56 +3091,122 @@ aws cloudformation wait stack-delete-complete --stack-name dcl-dev-stack-ops-s06
             </div>
           </div>
 
-          <!-- Glosario Específico de este Laboratorio -->
+          <!-- Glosario Específico de este Laboratorio (Organizado en 2 Niveles: Atómicos y Avanzados) -->
           <details class="lab-glossary-section" open>
             <summary class="lab-glossary-header" style="cursor: pointer; list-style: none;">
-              <div style="display: flex; align-items: center; gap: 0.65rem;">
+              <div style="display: flex; align-items: center; gap: 0.65rem; flex-wrap: wrap;">
                 <span style="font-size: 1.1rem;">📖</span>
                 <h4 style="font-size: 1.05rem; font-weight: 700;">Glosario Técnico de este Laboratorio (S07)</h4>
-                <span class="lab-badge s07">5 Términos Clave</span>
+                <span class="lab-badge s07">9 Conceptos Clave</span>
+                <span style="font-size: 0.75rem; color: var(--text-muted);">(5 Fundamentos Básicos + 4 Mecanismos de Lab)</span>
               </div>
               <div class="step-toggle-icon">▼</div>
             </summary>
             <div class="lab-glossary-body" style="margin-top: 0.75rem;">
-              <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 0.75rem;">
-                Conceptos arquitectónicos evaluados estrictamente en esta práctica. Consulta su significado formal y aplicación directa.
-              </p>
-              <div class="lab-glossary-grid">
-                
-              <div class="lab-glossary-item">
-                <h5>Arquitectura Orientada a Eventos (Serverless)</h5>
-                <p><strong>Definición:</strong> Patrón desacoplado donde los componentes reaccionan a cambios de estado emitidos por un productor (S3) mediante la ejecución efímera de funciones (Lambda).</p>
-                <p style="margin-top: 0.35rem; color: #fde68a;"><strong>💡 Analogía:</strong> Un timbre que suena solo cuando llega un paquete, en lugar de mantener a una persona esperando 24/7 en la puerta.</p>
-                <p style="margin-top: 0.35rem; color: #bae6fd;"><strong>🛠️ En este Lab:</strong> La subida de &#x27;incoming/order-001.json&#x27; generó el evento &#x27;ObjectCreated:Put&#x27; que invocó a Lambda durante escasos ~2 milisegundos.</p>
+              <div style="margin-bottom: 1rem;">
+                <div style="font-size: 0.85rem; font-weight: 700; color: #34d399; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.4rem;">
+                  <span>🔰 Nivel 1: Conceptos Fundamentales Atómicos (¡Lo que debes saber primero!)</span>
+                </div>
+                <div class="lab-glossary-grid">
+                  
+              <div class="lab-glossary-item" style="border-left: 3px solid #10b981;">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.35rem;">
+                  <h5 style="margin: 0;">Serverless (Computación sin Servidor)</h5>
+                  <span style="font-size: 0.65rem; background: rgba(16,185,129,0.2); color: #34d399; padding: 0.1rem 0.4rem; border-radius: 4px; font-weight: 700;">Fundamento Base</span>
+                </div>
+                <p><strong>Definición Formal:</strong> Modelo de ejecución en la nube donde el desarrollador construye y ejecuta aplicaciones sin aprovisionar, administrar, parchar ni escalar servidores. AWS asume toda la gestión de infraestructura física, sistema operativo y capacidad; el cliente paga estrictamente por el tiempo de ejecución consumido (en milisegundos) y $0.00 cuando no hay solicitudes.</p>
+                <p style="margin-top: 0.35rem; color: #fde68a;"><strong>💡 Analogía:</strong> En vez de comprar o alquilar un automóvil las 24 horas del día (pagando seguro y estacionamiento aunque no lo uses), utilizas un servicio como Uber: pagas únicamente por los minutos exactos del trayecto.</p>
+                <p style="margin-top: 0.35rem; color: #bae6fd;"><strong>🛠️ En este Lab:</strong> Reemplazamos la necesidad de tener una máquina virtual EC2 encendida continuamente esperando pedidos por una función Serverless que solo despierta cuando se sube un archivo a S3.</p>
               </div>
 
-              <div class="lab-glossary-item">
-                <h5>Execution Role vs Resource-based Policy</h5>
-                <p><strong>Definición:</strong> Resource-based Policy: autoriza la invocación entrante (de S3 a Lambda). Execution Role: autoriza las llamadas salientes (de Lambda a CloudWatch Logs).</p>
-                <p style="margin-top: 0.35rem; color: #fde68a;"><strong>💡 Analogía:</strong> Resource-based policy es la autorización que permite a la oficina postal tocar a tu puerta; Execution Role es tu credencial para redactar reportes en el archivo central.</p>
-                <p style="margin-top: 0.35rem; color: #bae6fd;"><strong>🛠️ En este Lab:</strong> Al configurar el trigger de S3 se generó la Resource-based policy; el Execution Role &#x27;dcl-dev-role-lambda-s07&#x27; se configuró exclusivamente con permisos de escritura de logs.</p>
+              <div class="lab-glossary-item" style="border-left: 3px solid #10b981;">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.35rem;">
+                  <h5 style="margin: 0;">AWS Lambda</h5>
+                  <span style="font-size: 0.65rem; background: rgba(16,185,129,0.2); color: #34d399; padding: 0.1rem 0.4rem; border-radius: 4px; font-weight: 700;">Fundamento Base</span>
+                </div>
+                <p><strong>Definición Formal:</strong> El servicio de cómputo Serverless &#x27;Function-as-a-Service&#x27; (FaaS) de AWS. Ejecuta código en respuesta a eventos de forma totalmente administrada, escalando automáticamente desde cero hasta miles de ejecuciones concurrentes en milisegundos y con alta disponibilidad Multi-AZ nativa.</p>
+                <p style="margin-top: 0.35rem; color: #fde68a;"><strong>💡 Analogía:</strong> Un interruptor de luz con sensor de movimiento: mientras no haya nadie en el pasillo consume cero energía; en el instante exacto en que alguien cruza la puerta, la luz se enciende al milisegundo.</p>
+                <p style="margin-top: 0.35rem; color: #bae6fd;"><strong>🛠️ En este Lab:</strong> Creamos la función Lambda &#x27;dcl-dev-order-event-s07&#x27; con runtime Python 3.14 y arquitectura x86_64 para procesar los eventos de pedidos.</p>
               </div>
 
-              <div class="lab-glossary-item">
-                <h5>Filtros de Notificación S3 (Prefix &amp; Suffix)</h5>
-                <p><strong>Definición:</strong> Criterios de coincidencia en el productor de eventos que restringen el disparo de notificaciones según el prefijo (carpeta) y sufijo (extensión) del objeto.</p>
-                <p style="margin-top: 0.35rem; color: #fde68a;"><strong>💡 Analogía:</strong> Filtrar la bandeja de correspondencia para tramitar únicamente cartas que provengan de la carpeta &#x27;incoming/&#x27; y terminen en formato &#x27;.json&#x27;.</p>
-                <p style="margin-top: 0.35rem; color: #bae6fd;"><strong>🛠️ En este Lab:</strong> Se configuró Prefix=&#x27;incoming/&#x27; y Suffix=&#x27;.json&#x27;, previniendo activamente bucles infinitos de auto-invocación recursiva.</p>
+              <div class="lab-glossary-item" style="border-left: 3px solid #10b981;">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.35rem;">
+                  <h5 style="margin: 0;">Función Lambda y Handler</h5>
+                  <span style="font-size: 0.65rem; background: rgba(16,185,129,0.2); color: #34d399; padding: 0.1rem 0.4rem; border-radius: 4px; font-weight: 700;">Fundamento Base</span>
+                </div>
+                <p><strong>Definición Formal:</strong> La unidad básica de despliegue en AWS Lambda. El &#x27;Handler&#x27; es el método o función específica dentro del código fuente (por ejemplo: &#x27;def lambda_handler(event, context):&#x27;) que el runtime de AWS invoca como punto de entrada cada vez que la función es disparada por un evento.</p>
+                <p style="margin-top: 0.35rem; color: #fde68a;"><strong>💡 Analogía:</strong> La ventanilla de recepción de una empresa. La oficina tiene muchas dependencias, pero cada vez que llega una carta, el recepcionista (Handler) la recibe y lee quién la manda y qué contiene.</p>
+                <p style="margin-top: 0.35rem; color: #bae6fd;"><strong>🛠️ En este Lab:</strong> El handler recibió el objeto JSON inyectado por S3, parseó la metadata del pedido (&#x27;order-001.json&#x27;) y emitió un registro estructurado a CloudWatch Logs.</p>
               </div>
 
-              <div class="lab-glossary-item">
-                <h5>Log Group Precreado y Retención</h5>
-                <p><strong>Definición:</strong> Creación anticipada del contenedor de logs en CloudWatch con política de retención explícita (1 día), acotando los permisos requeridos por el rol de Lambda.</p>
-                <p style="margin-top: 0.35rem; color: #fde68a;"><strong>💡 Analogía:</strong> Habilitar un cuaderno de registros con vigencia de un día para que el operador solo tenga permiso de escribir, sin facultades para crear cuadernos arbitrarios.</p>
-                <p style="margin-top: 0.35rem; color: #bae6fd;"><strong>🛠️ En este Lab:</strong> Precrear &#x27;/aws/lambda/dcl-dev-order-event-s07&#x27; permitió retirar &#x27;logs:CreateLogGroup&#x27; del rol, dejando únicamente &#x27;CreateLogStream&#x27; y &#x27;PutLogEvents&#x27;.</p>
+              <div class="lab-glossary-item" style="border-left: 3px solid #10b981;">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.35rem;">
+                  <h5 style="margin: 0;">Evento / Trigger en AWS</h5>
+                  <span style="font-size: 0.65rem; background: rgba(16,185,129,0.2); color: #34d399; padding: 0.1rem 0.4rem; border-radius: 4px; font-weight: 700;">Fundamento Base</span>
+                </div>
+                <p><strong>Definición Formal:</strong> Un mensaje estructurado en formato JSON emitido por un servicio emisor (productor de eventos, como Amazon S3 al crearse un objeto) que dispara automáticamente la invocación de un servicio receptor (consumidor, como AWS Lambda).</p>
+                <p style="margin-top: 0.35rem; color: #fde68a;"><strong>💡 Analogía:</strong> La campana de una puerta o el timbre del horno: cuando el pastel termina de hornearse, suena la campana avisándole al cocinero que debe intervenir.</p>
+                <p style="margin-top: 0.35rem; color: #bae6fd;"><strong>🛠️ En este Lab:</strong> Configuramos un trigger de tipo &#x27;All object create events&#x27; (&#x27;s3:ObjectCreated:*&#x27;) en el bucket para notificar automáticamente a la función Lambda.</p>
               </div>
 
-              <div class="lab-glossary-item">
-                <h5>Garantía de Entrega At-Least-Once</h5>
-                <p><strong>Definición:</strong> Garantía de los sistemas de mensajería distribuida donde AWS asegura que todo evento llegará al menos una vez al consumidor, pudiendo presentar duplicados esporádicos.</p>
-                <p style="margin-top: 0.35rem; color: #fde68a;"><strong>💡 Analogía:</strong> Un mensajero que ante la duda de si recibiste el mensaje, te entrega una segunda copia de seguridad.</p>
-                <p style="margin-top: 0.35rem; color: #bae6fd;"><strong>🛠️ En este Lab:</strong> La presencia eventual de dos ejecuciones en CloudWatch para un mismo objeto es inherente a la arquitectura distribuida de Amazon S3 y no un error de diseño.</p>
+              <div class="lab-glossary-item" style="border-left: 3px solid #10b981;">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.35rem;">
+                  <h5 style="margin: 0;">CloudWatch Logs (Log Group y Log Stream)</h5>
+                  <span style="font-size: 0.65rem; background: rgba(16,185,129,0.2); color: #34d399; padding: 0.1rem 0.4rem; border-radius: 4px; font-weight: 700;">Fundamento Base</span>
+                </div>
+                <p><strong>Definición Formal:</strong> El subsistema de CloudWatch para almacenamiento y consulta de registros de texto. Un &#x27;Log Group&#x27; es el contenedor principal que define la retención temporal (cuántos días se conservan los logs) y permisos; un &#x27;Log Stream&#x27; es una secuencia cronológica individual de eventos de log emitida por una instancia específica de ejecución de Lambda.</p>
+                <p style="margin-top: 0.35rem; color: #fde68a;"><strong>💡 Analogía:</strong> El Log Group es el archivador de oficina etiquetado &#x27;Auditoría de Pedidos&#x27;, y cada Log Stream es una carpeta individual que contiene las hojas escritas durante un turno específico.</p>
+                <p style="margin-top: 0.35rem; color: #bae6fd;"><strong>🛠️ En este Lab:</strong> Precreamos el Log Group &#x27;/aws/lambda/dcl-dev-order-event-s07&#x27; con retención estricta de 1 día antes de crear la función, asegurando gobernanza de costos y mínimo privilegio.</p>
               </div>
+                </div>
+              </div>
+
+              <div>
+                <div style="font-size: 0.85rem; font-weight: 700; color: #c084fc; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.4rem;">
+                  <span>⚙️ Nivel 2: Mecanismos y Comportamientos de este Laboratorio</span>
+                </div>
+                <div class="lab-glossary-grid">
+                  
+              <div class="lab-glossary-item" style="border-left: 3px solid #8b5cf6;">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.35rem;">
+                  <h5 style="margin: 0;">Arquitectura Orientada a Eventos (Serverless EDA)</h5>
+                  <span style="font-size: 0.65rem; background: rgba(139,92,246,0.2); color: #c084fc; padding: 0.1rem 0.4rem; border-radius: 4px; font-weight: 700;">Mecanismo Lab</span>
+                </div>
+                <p><strong>Definición:</strong> Patrón de diseño arquitectónico donde los componentes se comunican de manera asíncrona desacoplada mediante la emisión y consumo de eventos, eliminando la necesidad de que los servicios se conozcan directamente o mantengan servidores sondeando activamente (polling).</p>
+                <p style="margin-top: 0.35rem; color: #fde68a;"><strong>💡 Analogía:</strong> Un buzón de correo postal: el cartero deposita la carta y sigue su camino; tú la recoges cuando te convenga sin que el cartero tenga que esperarte en la puerta.</p>
+                <p style="margin-top: 0.35rem; color: #bae6fd;"><strong>🛠️ En este Lab:</strong> S3 emitió el evento al recibir &#x27;order-001.json&#x27; y Lambda se activó de forma instantánea sin intermediación de servidores de sondeo.</p>
+              </div>
+
+              <div class="lab-glossary-item" style="border-left: 3px solid #8b5cf6;">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.35rem;">
+                  <h5 style="margin: 0;">Execution Role vs Resource-based Policy</h5>
+                  <span style="font-size: 0.65rem; background: rgba(139,92,246,0.2); color: #c084fc; padding: 0.1rem 0.4rem; border-radius: 4px; font-weight: 700;">Mecanismo Lab</span>
+                </div>
+                <p><strong>Definición:</strong> El &#x27;Execution Role&#x27; autoriza a la función Lambda a interactuar con otros servicios de AWS (como escribir logs en CloudWatch). La &#x27;Resource-based Policy&#x27; autoriza a un servicio externo (como el bucket de S3) a invocar la función Lambda.</p>
+                <p style="margin-top: 0.35rem; color: #fde68a;"><strong>💡 Analogía:</strong> El Execution Role es la billetera y credenciales que Lambda lleva consigo para trabajar; la Resource-based Policy es la cerradura en la puerta de Lambda que le permite a S3 tocar el timbre.</p>
+                <p style="margin-top: 0.35rem; color: #bae6fd;"><strong>🛠️ En este Lab:</strong> El Execution Role solo concedió logs:CreateLogStream y logs:PutLogEvents (sin permisos a S3). La autorización para que S3 invoque a Lambda se configuró en la Resource-based policy de la función.</p>
+              </div>
+
+              <div class="lab-glossary-item" style="border-left: 3px solid #8b5cf6;">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.35rem;">
+                  <h5 style="margin: 0;">Filtros de Notificación S3 (Prefix &amp; Suffix)</h5>
+                  <span style="font-size: 0.65rem; background: rgba(139,92,246,0.2); color: #c084fc; padding: 0.1rem 0.4rem; border-radius: 4px; font-weight: 700;">Mecanismo Lab</span>
+                </div>
+                <p><strong>Definición:</strong> Reglas de acotamiento aplicadas sobre la configuración de notificaciones del bucket que restringen el disparo de eventos exclusivamente a objetos que comiencen con un prefijo exacto y terminen con una extensión o sufijo determinado.</p>
+                <p style="margin-top: 0.35rem; color: #fde68a;"><strong>💡 Analogía:</strong> Un filtro en tu correo electrónico que solo envía a tu teléfono las alertas de mensajes que provengan de &#x27;pedidos/&#x27; y terminen en &#x27;.pdf&#x27;.</p>
+                <p style="margin-top: 0.35rem; color: #bae6fd;"><strong>🛠️ En este Lab:</strong> Configuramos Prefix=&#x27;incoming/&#x27; y Suffix=&#x27;.json&#x27;, asegurando que subir archivos en la raíz o con extensiones como &#x27;.txt&#x27; no active la función Lambda ni genere costos.</p>
+              </div>
+
+              <div class="lab-glossary-item" style="border-left: 3px solid #8b5cf6;">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.35rem;">
+                  <h5 style="margin: 0;">Garantía de Entrega At-Least-Once</h5>
+                  <span style="font-size: 0.65rem; background: rgba(139,92,246,0.2); color: #c084fc; padding: 0.1rem 0.4rem; border-radius: 4px; font-weight: 700;">Mecanismo Lab</span>
+                </div>
+                <p><strong>Definición:</strong> Semántica de entrega de eventos en sistemas distribuidos de AWS donde la plataforma garantiza que cada evento se entregará al menos una vez, existiendo una probabilidad remota de entregas duplicadas. Por ello, las funciones en producción deben diseñarse de forma idempotente.</p>
+                <p style="margin-top: 0.35rem; color: #fde68a;"><strong>💡 Analogía:</strong> Un mensajero insistente que, ante la mínima duda de si el timbre sonó bien, vuelve a tocar la puerta por si acaso para no dejar el paquete desatendido.</p>
+                <p style="margin-top: 0.35rem; color: #bae6fd;"><strong>🛠️ En este Lab:</strong> El profesor especificó que una invocación duplicada ocasional es normal por diseño en S3 Event Notifications y no representa un fallo en la infraestructura del laboratorio.</p>
+              </div>
+                </div>
               </div>
             </div>
           </details>
@@ -3386,7 +4117,6 @@ Could not connect to the endpoint URL</div>
 
           <div class="flashcard-3d-wrap" onclick="toggleFlashcard(this)">
             <div class="flashcard-inner">
-              <!-- Frente -->
               <div class="flashcard-face flashcard-front">
                 <div>
                   <span class="lab-badge s05" style="font-size: 0.68rem;">Sustentación · Lab 05</span>
@@ -3397,7 +4127,6 @@ Could not connect to the endpoint URL</div>
                   <span style="color: var(--aws-orange); font-weight: 700;">Girar tarjeta ↻</span>
                 </div>
               </div>
-              <!-- Reverso -->
               <div class="flashcard-face flashcard-back">
                 <div>
                   <span class="lab-badge s06" style="font-size: 0.68rem;">Estructura de Respuesta Oral</span>
@@ -3412,7 +4141,6 @@ Could not connect to the endpoint URL</div>
 
           <div class="flashcard-3d-wrap" onclick="toggleFlashcard(this)">
             <div class="flashcard-inner">
-              <!-- Frente -->
               <div class="flashcard-face flashcard-front">
                 <div>
                   <span class="lab-badge s05" style="font-size: 0.68rem;">Sustentación · Lab 05</span>
@@ -3423,7 +4151,6 @@ Could not connect to the endpoint URL</div>
                   <span style="color: var(--aws-orange); font-weight: 700;">Girar tarjeta ↻</span>
                 </div>
               </div>
-              <!-- Reverso -->
               <div class="flashcard-face flashcard-back">
                 <div>
                   <span class="lab-badge s06" style="font-size: 0.68rem;">Estructura de Respuesta Oral</span>
@@ -3438,7 +4165,6 @@ Could not connect to the endpoint URL</div>
 
           <div class="flashcard-3d-wrap" onclick="toggleFlashcard(this)">
             <div class="flashcard-inner">
-              <!-- Frente -->
               <div class="flashcard-face flashcard-front">
                 <div>
                   <span class="lab-badge s05" style="font-size: 0.68rem;">Sustentación · Lab 06</span>
@@ -3449,7 +4175,6 @@ Could not connect to the endpoint URL</div>
                   <span style="color: var(--aws-orange); font-weight: 700;">Girar tarjeta ↻</span>
                 </div>
               </div>
-              <!-- Reverso -->
               <div class="flashcard-face flashcard-back">
                 <div>
                   <span class="lab-badge s06" style="font-size: 0.68rem;">Estructura de Respuesta Oral</span>
@@ -3464,7 +4189,6 @@ Could not connect to the endpoint URL</div>
 
           <div class="flashcard-3d-wrap" onclick="toggleFlashcard(this)">
             <div class="flashcard-inner">
-              <!-- Frente -->
               <div class="flashcard-face flashcard-front">
                 <div>
                   <span class="lab-badge s05" style="font-size: 0.68rem;">Sustentación · Lab 06</span>
@@ -3475,7 +4199,6 @@ Could not connect to the endpoint URL</div>
                   <span style="color: var(--aws-orange); font-weight: 700;">Girar tarjeta ↻</span>
                 </div>
               </div>
-              <!-- Reverso -->
               <div class="flashcard-face flashcard-back">
                 <div>
                   <span class="lab-badge s06" style="font-size: 0.68rem;">Estructura de Respuesta Oral</span>
@@ -3490,7 +4213,6 @@ Could not connect to the endpoint URL</div>
 
           <div class="flashcard-3d-wrap" onclick="toggleFlashcard(this)">
             <div class="flashcard-inner">
-              <!-- Frente -->
               <div class="flashcard-face flashcard-front">
                 <div>
                   <span class="lab-badge s05" style="font-size: 0.68rem;">Sustentación · Lab 07</span>
@@ -3501,7 +4223,6 @@ Could not connect to the endpoint URL</div>
                   <span style="color: var(--aws-orange); font-weight: 700;">Girar tarjeta ↻</span>
                 </div>
               </div>
-              <!-- Reverso -->
               <div class="flashcard-face flashcard-back">
                 <div>
                   <span class="lab-badge s06" style="font-size: 0.68rem;">Estructura de Respuesta Oral</span>
@@ -3516,7 +4237,6 @@ Could not connect to the endpoint URL</div>
 
           <div class="flashcard-3d-wrap" onclick="toggleFlashcard(this)">
             <div class="flashcard-inner">
-              <!-- Frente -->
               <div class="flashcard-face flashcard-front">
                 <div>
                   <span class="lab-badge s05" style="font-size: 0.68rem;">Sustentación · Lab 07</span>
@@ -3527,7 +4247,6 @@ Could not connect to the endpoint URL</div>
                   <span style="color: var(--aws-orange); font-weight: 700;">Girar tarjeta ↻</span>
                 </div>
               </div>
-              <!-- Reverso -->
               <div class="flashcard-face flashcard-back">
                 <div>
                   <span class="lab-badge s06" style="font-size: 0.68rem;">Estructura de Respuesta Oral</span>

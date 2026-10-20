@@ -20,12 +20,15 @@ Desarrollado bajo estándares formales de ingeniería, separando responsabilidad
 
 ## 🚀 Módulos del Sistema
 
-1. **📚 1. Glosario Técnico y Fundamentos**:
-   - 20 conceptos arquitectónicos con definición formal, analogía intuitiva y aplicación exacta en el laboratorio.
-   - Búsqueda en vivo y filtrado instantáneo por laboratorio (S05, S06, S07).
+1. **📚 1. Glosario Técnico y Fundamentos (37 Conceptos)**:
+   - Organizado en 2 niveles didácticos:
+     - **🔰 Nivel 1 (Fundamentos Atómicos)**: Conceptos base esenciales (¿Qué es un IAM Role?, ¿Qué es una IAM Policy?, IAM User vs Role, ARN, S3 Bucket, Objeto en S3, CloudTrail, IaC, CloudFormation, Template, Stack, CloudWatch, Métricas, Alarmas, EC2, Serverless, Lambda, Handler, Trigger, Log Groups).
+     - **⚙️ Nivel 2 (Mecanismos y Comportamientos de Lab)**: Reachability vs Authorization, Instance Profile, Action vs Resource, SSE-S3, DatapointsToAlarm, Update in-place, EDA, Execution Role vs Resource-based policy, etc.
+   - Cada concepto incluye definición formal rigurosa, analogía intuitiva y aplicación exacta en el laboratorio.
+   - Búsqueda reactiva en vivo y filtrado instantáneo por laboratorio (S05: 15, S06: 13, S07: 9).
 
 2. **🛠️ 2. Guía Oficial Paso a Paso (S05 · S06 · S07)**:
-   - **Glosario específico incrustado** dentro de cada laboratorio mostrando solo los términos que le corresponden.
+   - **Glosario específico incrustado** dentro de cada laboratorio organizado en los dos niveles (Fundamentos Básicos + Mecanismos de Lab).
    - Diagrama de flujo de componentes de arquitectura.
    - **21 pasos desglosados** sin omitir un solo sub-ítem: qué hacemos, por qué, procedimiento exacto, comandos AWS CLI listos para copiar, validaciones oficiales, evidencia requerida y trampas de examen.
    - **Inspector interactivo de código sticky**: explicación detallada línea por línea de políticas IAM, plantillas CloudFormation YAML y funciones Lambda en Python.
