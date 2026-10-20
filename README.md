@@ -2,6 +2,8 @@
 
 Plataforma técnica interactiva y preparador avanzado para los laboratorios de Arquitectura de Sistemas Cloud en Amazon Web Services (AWS).
 
+> 🌐 **Sitio Web en Vivo (GitHub Pages):** [https://ioavm.github.io/aws-cloud-study-hub/](https://ioavm.github.io/aws-cloud-study-hub/)
+
 Desarrollado bajo estándares formales de ingeniería, separando responsabilidades con **Vanilla CSS puro** y **JavaScript moderno no intrusivo**, renderizado con **HTML5 semántico estático** accesible y de carga instantánea.
 
 ---
